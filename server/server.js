@@ -37,10 +37,12 @@ app.post('/api/customers/login', async (req, res, next) => {
     res.status(400).send('Customer not found');
   }
   try {
-    if (bcrypt.compare(req.body.password, customer.password)) {
-      res.json(customer._id);
+    const isPasswordValid = await bcrypt.compare(req.body.password, customer.password);
+    if (isPasswordValid) {
+      console.log(customer);
+      return res.json({ customerId: customer._id });
     } else {
-      res.send('Not allowed')
+      return res.status(401).json({ message: 'Incorrect password' });
     }
   } catch (err) {
     next(err);
@@ -72,10 +74,12 @@ app.post('/api/restaurants/login', async (req, res, next) => {
     res.status(400).send('Restaurant not found');
   }
   try {
-    if (bcrypt.compare(req.body.password, restaurant.password)) {
-      res.json(restaurant._id);
+    const isPasswordValid = await bcrypt.compare(req.body.password, restaurant.password);
+    if (isPasswordValid) {
+      console.log(restaurant);
+      return res.json({ restaurantId: restaurant._id });
     } else {
-      res.send('Not allowed')
+      return res.status(401).json({ message: 'Incorrect password' });
     }
   } catch (err) {
     next(err);
