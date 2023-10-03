@@ -28,7 +28,7 @@ const restaurantSchema = new Schema({
   closing: String,
   email: {
     type: String,
-    required
+    required: true
   },
   phoneNumber: {
     type: String,
