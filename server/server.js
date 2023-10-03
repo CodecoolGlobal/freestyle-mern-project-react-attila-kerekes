@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import express from "express";
 
-import Customer from "./model/Customer";
-import Reservation from "./model/Reservation";
-import Restaurant from "./model/Restaurant";
+import Customer from "./model/Customer.js";
+import Reservation from "./model/Reservation.js";
+import Restaurant from "./model/Restaurant.js";
 
 mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongodb.net/")
 
@@ -40,7 +40,7 @@ app.get('/api/restaurants', async (req, res) => {
 });
 
 //POST api/reservation
-app.post('/api/reservation', (req, res) => {
+/* app.post('/api/reservation', (req, res) => {
   const restaurantId = ;
   const customerId = ;
   const numberOfGuests = ;
@@ -59,6 +59,19 @@ app.post('/api/reservation', (req, res) => {
   reservation.save()
     .then(reservation => res.json(reservation))
     .catch(err => res.status(400).json({ success: false }))
+}) */
+
+app.get('/api/restaurant/:id', async (req, res) => {
+  try{
+      
+    const restaurantId = req.params.id;
+    const restaurant = await Restaurant.findById(restaurantId);
+    res.send(restaurant);
+  } catch (err){
+    console.log(err.message);
+    return res.status(500).send({error: err.message});
+  }
 })
+
 
 app.listen(3000, () => console.log('Server started on port 3000'));
