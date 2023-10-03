@@ -33,7 +33,8 @@ const restaurantSchema = new Schema({
   phoneNumber: {
     type: String,
     required: true
-  }
+  },
+  tables: []
 });
 
 export default model("Restaurant", restaurantSchema);
