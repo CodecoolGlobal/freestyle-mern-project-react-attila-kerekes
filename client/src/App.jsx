@@ -8,7 +8,7 @@ function App() {
     {
       element: <h1>Hello</h1>,
       path:'/hello'
-    }
+    },
   ])
 
   return routes;
