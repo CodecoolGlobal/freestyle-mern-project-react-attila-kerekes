@@ -6,6 +6,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { LoginForRestaurants } from './pages/LoginForRestaurants'
 import { RegisterForRestaurants } from './pages/RegisterForRestaurants'
+import UpdateRestaurant from './pages/UpdateRestaurant'
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -38,6 +39,10 @@ function App() {
     {
       element: <RestaurantMain id={'651c167e029b7f8728c00c8d'}/>,
       path: '/restaurant/:id',
+    },
+    {
+      element: <UpdateRestaurant />,
+      path: '/restaurant/update/:id'
     }
   ])
 
