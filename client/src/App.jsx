@@ -6,12 +6,13 @@ import Contact from './component/Contact';
 import CustomerFindRestaurant from './component/customer_components/CustomerFindRestaurant';
 import CustomerEditor from './component/customer_components/CustomerEditor';
 import CustomerReservations from './component/customer_components/CustomerReservations';
-import RestaurantMain from './pages/RestaurantMain'
+import MyRestaurant from './pages/MyRestaurant'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { LoginForRestaurants } from './pages/LoginForRestaurants'
 import { RegisterForRestaurants } from './pages/RegisterForRestaurants'
 import UpdateRestaurant from './pages/UpdateRestaurant'
+import { useState } from 'react';
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -68,8 +69,8 @@ function App() {
       path: '/restaurants/register'
     },
     {
-      element: <RestaurantMain id={'651c167e029b7f8728c00c8d'}/>,
-      path: '/restaurant/:id',
+      element: <MyRestaurant/>,
+      path: '/restaurant/myrestaurant/:id',
     },
     {
       element: <UpdateRestaurant />,

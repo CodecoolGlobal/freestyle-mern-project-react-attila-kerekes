@@ -5,7 +5,6 @@ import RestaurantNav from "../components/RestaurantNav";
 
 function RestaurantMain(){
     const [restaurant, setRestaurant] = useState(null);
-    const [resorvation, setResorvation] = useState(null);
     const {id} = useParams();
 
     useEffect(() => {
@@ -17,13 +16,12 @@ function RestaurantMain(){
         fetchData();
     }, [])
 
+
     console.log(restaurant);
 
     return(
         <div className="restaurantMain">
             <RestaurantNav />
-            {resorvation === null ? <h3>Loading ...</h3> : resorvation.length === 0 ? <h3>The restaurant don&apos;t have any resorvation</h3> : <h3>Resorvations: </h3>}
-            {/*Show resorvations */}
         </div>
     )
 }

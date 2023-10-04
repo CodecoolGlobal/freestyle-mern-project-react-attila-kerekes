@@ -53,9 +53,6 @@ function RestaurantForm({onUpdate}){
             <label>Phone number: </label>
             <input type="number" name="phoneNumber" value={Number(restaurantInfo.phoneNumber)}  onChange={(event) => {setRestaurantInfo(prev => ({...prev, phoneNumber: Number(event.target.value)}))}}/>
             <br />
-            <label>Password: </label>
-            <input type="text" name="password" value={restaurantInfo.password} onChange={(event) => {setRestaurantInfo(prev => ({...prev, password: event.target.value}))}}/>
-            <br />
             <button>Update informations</button>
         </form>
     )
