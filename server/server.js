@@ -56,7 +56,7 @@ app.post('/api/restaurants', async (req, res, next) => {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
-    const restaurant = new Customer({
+    const restaurant = new Restaurant({
       email: req.body.email,
       restaurantName: req.body.restaurantName,
       phoneNumber: req.body.phoneNumber,
@@ -73,7 +73,7 @@ app.post('/api/restaurants', async (req, res, next) => {
 
 //login restaurant
 app.post('/api/restaurants/login', async (req, res, next) => {
-  const restaurant = await Customer.findOne({ email: req.body.email });
+  const restaurant = await Restaurant.findOne({ email: req.body.email });
   if (restaurant === null) {
     return res.status(400).send('Restaurant not found');
   }
@@ -108,7 +108,7 @@ app.get('/api/customers/:id', async (req, res) => {
 //GET api/restaurants
 app.get('/api/restaurants', async (req, res) => {
   try {
-    const restaurants = await Customer.find();
+    const restaurants = await Restaurant.find();
     res.json(restaurants);
   } catch (error) {
     console.error('Error fetching restaurants:', error);
@@ -140,10 +140,10 @@ app.get('/api/restaurants', async (req, res) => {
 
 app.get('/api/restaurant/:id', async (req, res) => {
   try {
-
     const restaurantId = req.params.id;
-    const restaurant = await Customer.findById(restaurantId);
-
+    console.log(restaurantId);
+    const restaurant = await Restaurant.findById(restaurantId);
+    console.log(restaurant);
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
@@ -197,6 +197,23 @@ app.patch('/api/customer', async (req, res) => {
   } catch (err) {
     console.log(err.message);
     return res.status(500).send({ error: err.message });
+  }
+})
+
+
+//add tables
+app.post('/api/table/:id', async (req, res) => {
+  try{
+    const restaurantId = req.params.id;
+    const table = req.body;
+    const restaurant = await Restaurant.findById(restaurantId);
+    const tables = restaurant.tables;
+    tables.push(table);
+    await Restaurant.findByIdAndUpdate(restaurantId, {tables: tables});
+    res.send({status: 'added', id: '', seets: ''});
+  } catch(err){
+    console.log(err.message);
+    return res.status(500).send({error: err.message});
   }
 })
 
