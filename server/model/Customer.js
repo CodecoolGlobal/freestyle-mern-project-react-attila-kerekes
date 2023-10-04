@@ -24,7 +24,8 @@ const customerSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-  }
+  },
+
   // address: {
   //   country: {
   //     type: String,

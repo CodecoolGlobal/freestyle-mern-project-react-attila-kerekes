@@ -56,7 +56,7 @@ app.post('/api/restaurants', async (req, res, next) => {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
-    const restaurant = new Restaurant({
+    const restaurant = new Customer({
       email: req.body.email,
       restaurantName: req.body.restaurantName,
       phoneNumber: req.body.phoneNumber,
@@ -73,7 +73,7 @@ app.post('/api/restaurants', async (req, res, next) => {
 
 //login restaurant
 app.post('/api/restaurants/login', async (req, res, next) => {
-  const restaurant = await Restaurant.findOne({ email: req.body.email });
+  const restaurant = await Customer.findOne({ email: req.body.email });
   if (restaurant === null) {
     return res.status(400).send('Restaurant not found');
   }
@@ -90,7 +90,7 @@ app.post('/api/restaurants/login', async (req, res, next) => {
   }
 })
 
-//GET api/customers/:id
+/* //GET api/customers/:id
 app.get('/api/customers/:id', async (req, res) => {
   try {
     const customerId = req.params.id;
@@ -103,12 +103,12 @@ app.get('/api/customers/:id', async (req, res) => {
     console.error('Error fetching customer:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
-});
+}); */
 
 //GET api/restaurants
 app.get('/api/restaurants', async (req, res) => {
   try {
-    const restaurants = await Restaurant.find();
+    const restaurants = await Customer.find();
     res.json(restaurants);
   } catch (error) {
     console.error('Error fetching restaurants:', error);
@@ -142,8 +142,8 @@ app.get('/api/restaurant/:id', async (req, res) => {
   try {
 
     const restaurantId = req.params.id;
-    const restaurant = await Restaurant.findById(restaurantId);
-    
+    const restaurant = await Customer.findById(restaurantId);
+
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
@@ -151,6 +151,18 @@ app.get('/api/restaurant/:id', async (req, res) => {
   }
 })
 
+app.get('/api/customer/:id', async (req, res) => {
+  try {
+
+    const customerId = req.params.id;
+    const customer = await Customer.findById(customerId);
+
+    res.send(customer);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ error: err.message });
+  }
+})
 
 //Update restaurant informations
 app.patch('/api/restaurant', async (req, res) => {
@@ -163,10 +175,28 @@ app.patch('/api/restaurant', async (req, res) => {
       phoneNumber: req.body.phoneNumber,
       password: req.body.password
     });
-    res.json({status: 'updated'});
-  } catch(err){
+    res.json({ status: 'updated' });
+  } catch (err) {
     console.log(err.message);
-    return res.status(500).send({error: err.message});
+    return res.status(500).send({ error: err.message });
+  }
+})
+
+//Update customer informations
+app.patch('/api/customer', async (req, res) => {
+  try {
+    console.log(req.body);
+    const customer = await Customer.findByIdAndUpdate(req.body._id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      password: req.body.password
+    });
+    res.json({ status: 'updated' });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ error: err.message });
   }
 })
 
