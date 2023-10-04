@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
-const postDataRestaurant = async (email, password, name, number, openingTime, closingTime) => {
+const postDataRestaurant = async (email, password, name, number, openingTime, closingTime, cuisine, city) => {
     try {
       const data = {
         email: email,
@@ -9,7 +9,9 @@ const postDataRestaurant = async (email, password, name, number, openingTime, cl
         restaurantName: name,
         phoneNumber: number,
         opening: openingTime,
-        closing: closingTime
+        closing: closingTime,
+        cuisine: cuisine,
+        city: city
       };
       const response = await fetch('/api/restaurants', {
         method: 'POST',
@@ -22,7 +24,7 @@ const postDataRestaurant = async (email, password, name, number, openingTime, cl
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
-      const responseData = await response.json().message;
+      const responseData = await response.json();
       return responseData;
     } catch (error) {
       console.error('Error:', error);
@@ -62,20 +64,23 @@ export const Register = ({onSubmit}) => {
     const [name, setName] = useState('');
     const [openingTime, setOpeningTime] = useState('');
     const [closingTime, setClosingTime] = useState('');
+    const [cuisine, setCuisine] = useState('');
+    const [city, setCity] = useState('');
     // const [isCustomer, setIsCustomer] = useState(true);
     const navigate = useNavigate();
     let [searchParams, setSearchParams] = useSearchParams();
     const isCustomer = searchParams.get('isCustomer') === null || searchParams.get('isCustomer') === "true" ;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         if (isCustomer) {
             e.preventDefault();
-            const customer = postData(email, password, firstName, lastName, number);
+            const customer = await postData(email, password, firstName, lastName, number);
             onSubmit(customer._id);
             navigate("/customer");
         } else {
             e.preventDefault();
-            const restaurant = postDataRestaurant(email, password, name, number, openingTime, closingTime);
+            const restaurant = await postDataRestaurant(email, password, name, number, openingTime, closingTime, cuisine, city);
+            console.log(restaurant);
             onSubmit(restaurant._id);
             navigate(`/restaurant/myrestaurant/${restaurant._id}`);
         }
@@ -202,6 +207,26 @@ export const Register = ({onSubmit}) => {
                             type="time"
                             value={closingTime}
                             onChange={(e) => setClosingTime(e.target.value)}
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Cuisine
+                        <input
+                            type="name"
+                            value={cuisine}
+                            onChange={(e) => setCuisine(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        City
+                        <input
+                            type="name"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
                         />
                     </label>
                     <br />
