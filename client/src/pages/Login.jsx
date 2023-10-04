@@ -1,72 +1,111 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
-export const Login = ({onSubmit}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const login = async (email, password) => {
-    try {
-      const data = {
+const login = async (email, password, url, setErr) => {
+    const data = {
         email: email,
         password: password,
-      };
-      const response = await fetch('/api/customers/login', {
+    };
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
+    });
+    const message = await response.json();
+    if (!response.ok) {
+        setErr(message.message);
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
-      const responseData = await response.json();
-      return responseData;
-    } catch (error) {
-      console.error('Error:', error);
-      throw error;
     }
-  };
-  
+    return message;
+};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const customer = await login(email, password);
-    onSubmit(customer.customerId);
-    setEmail('');
-    setPassword('');
-  };
+export const Login = ({ onSubmit }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    // const [isCustomer, setIsCustomer] = useState(true);
+    const [err, setErr] = useState('');
+    const navigate = useNavigate();
+    let [searchParams, setSearchParams] = useSearchParams();
+    const isCustomer = searchParams.get('isCustomer') === null || searchParams.get('isCustomer') === "true" ;
+    console.log([...searchParams.entries()], isCustomer, searchParams.get('isCustomer'))
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          E-mail 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <br/>
-        <label>
-          Password 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <br/>
-        <button type="submit">Login</button><br/>
-      </form>
-        <Link to='/register'>Register</Link><br/>
-        <Link to='/restaurants/login'>Log in as a Restaurant</Link>
-    </div>
-  );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (isCustomer) {
+            const customer = await login(email, password, '/api/customers/login', setErr);
+            onSubmit(customer._id);
+            navigate("/customer");
+        } else {
+            const restaurant = await login(email, password, '/api/restaurants/login', setErr);
+            onSubmit(restaurant._id);
+            navigate(`/restaurant/${restaurant._id}`);
+        }
+    };
+
+    if (isCustomer) {
+        return (
+            <div>
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <p style={{ color: 'red' }}>{err}</p>
+                    <label>
+                        E-mail
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Password
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <button type="submit">Login</button><br />
+                </form>
+                <Link to='/register'>Register</Link><br />
+                <button onClick={() => setSearchParams({isCustomer: !isCustomer})}>{isCustomer ? "Log in as a Restaurant" : "Log in as customer"}</button>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <h2>Login for restaurants</h2>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        E-mail
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Password
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <button type="submit">Login</button><br />
+                    <Link to='/register?isCustomer=false'>Register as a restaurant</Link><br />
+                    <button onClick={() => setSearchParams({isCustomer: !isCustomer})}>{isCustomer ? "Log in as a Restaurant" : "Log in as customer"}</button>
+                </form>
+            </div>
+        );
+    }
 };

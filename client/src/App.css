@@ -48,3 +48,7 @@ body, #root {
   padding: 10px;
   background-color: #b83c24;
 }
+
+button {
+  user-select: none;
+}

@@ -21,7 +21,10 @@ app.post('/api/customers', async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const customer = new Customer({
       email: req.body.email,
-      password: hashedPassword
+      password: hashedPassword,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber
     });
     await customer.save();
     res.status(201).send(customer);
@@ -34,12 +37,12 @@ app.post('/api/customers', async (req, res, next) => {
 app.post('/api/customers/login', async (req, res, next) => {
   const customer = await Customer.findOne({ email: req.body.email });
   if (customer === null) {
-    res.status(400).send('Customer not found');
+    return res.status(400).json({ message: 'Customer not found' });
   }
   try {
     const isPasswordValid = await bcrypt.compare(req.body.password, customer.password);
     if (isPasswordValid) {
-      return res.json({ customerId: customer._id });
+      return res.json({ _id: customer._id });
     } else {
       return res.status(401).json({ message: 'Incorrect password' });
     }
@@ -57,7 +60,9 @@ app.post('/api/restaurants', async (req, res, next) => {
       email: req.body.email,
       restaurantName: req.body.restaurantName,
       phoneNumber: req.body.phoneNumber,
-      password: hashedPassword
+      password: hashedPassword,
+      opening: req.body.opening,
+      closing: req.body.closing
     });
     await restaurant.save();
     res.status(201).send(restaurant);
@@ -70,13 +75,13 @@ app.post('/api/restaurants', async (req, res, next) => {
 app.post('/api/restaurants/login', async (req, res, next) => {
   const restaurant = await Customer.findOne({ email: req.body.email });
   if (restaurant === null) {
-    res.status(400).send('Restaurant not found');
+    return res.status(400).send('Restaurant not found');
   }
   try {
     const isPasswordValid = await bcrypt.compare(req.body.password, restaurant.password);
     if (isPasswordValid) {
       console.log(restaurant);
-      return res.json({ restaurantId: restaurant._id });
+      return res.json({ _id: restaurant._id });
     } else {
       return res.status(401).json({ message: 'Incorrect password' });
     }
@@ -161,17 +166,14 @@ app.get('/api/customer/:id', async (req, res) => {
 
 //Update restaurant informations
 app.patch('/api/restaurant', async (req, res) => {
-  try {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    console.log(req.body);
-    const restaurant = await Customer.findByIdAndUpdate(req.body._id, {
+  try{ 
+    const restaurant = await Restaurant.findByIdAndUpdate(req.body._id, {
       restaurantName: req.body.restaurantName,
       opening: req.body.opening,
       closing: req.body.closing,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
-      password: hashedPassword
+      password: req.body.password
     });
     res.json({ status: 'updated' });
   } catch (err) {

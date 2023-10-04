@@ -6,14 +6,18 @@ export const RegisterForRestaurants = () => {
     const [password, setPassword] = useState("");
     const [number, setNumber] = useState('');
     const [name, setName] = useState('');
+    const [openingTime, setOpeningTime] = useState('');
+    const [closingTime, setClosingTime] = useState('');
 
-    const postData = async () => {
+    const postDataRestaurant = async () => {
         try {
           const data = {
             email: email,
             password: password,
             restaurantName: name,
             phoneNumber: number,
+            opening: openingTime,
+            closing: closingTime
           };
           const response = await fetch('/api/restaurants', {
             method: 'POST',
@@ -26,7 +30,7 @@ export const RegisterForRestaurants = () => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
           }
-          const responseData = await response.json();
+          const responseData = await response.json().message;
           return responseData;
         } catch (error) {
           console.error('Error:', error);
@@ -84,6 +88,24 @@ export const RegisterForRestaurants = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
+                    />
+                </label>
+                <br />
+                <label>
+                    Opening
+                    <input
+                        type="time"
+                        value={openingTime}
+                        onChange={(e) => setOpeningTime(e.target.value)}
+                    />
+                </label>
+                <br />
+                <label>
+                    Closing
+                    <input
+                        type="time"
+                        value={closingTime}
+                        onChange={(e) => setClosingTime(e.target.value)}
                     />
                 </label>
                 <br />

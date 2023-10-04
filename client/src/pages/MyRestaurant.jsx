@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import RestaurantNav from "../components/RestaurantNav";
+import RestaurantTableElements from '../components/RestaurantTableElements';
 
 
 function RestaurantMain(){
@@ -22,8 +23,27 @@ function RestaurantMain(){
     return(
         <div className="restaurantMain">
             <RestaurantNav />
+            {restaurant && 
+                <div className="my-restaurant">
+                    <p>Restaurant name: {restaurant.restaurantName}</p>
+                    <p>Opening: {restaurant.opening}</p>
+                    <p>Closing: {restaurant.closing}</p>
+                    <p>Email address: {restaurant.email}</p>
+                    <p>Phone number: {restaurant.phoneNumber}</p>
+                    <p>Tables: {restaurant.tables.length ? restaurant.tables.length : 'You don\'t have any tables!'}</p>
+                    <table>{restaurant.tables.map(table => <RestaurantTableElements key={table.id} table={table}/>)}</table>
+                </div>
+            }
+            <button><Link to={`/restaurant/update/${id}`}>Update informations</Link></button>
         </div>
     )
 }
 
 export default RestaurantMain;
+
+
+/*
+    id
+    székek
+    foglalható
+*/

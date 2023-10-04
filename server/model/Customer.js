@@ -25,6 +25,7 @@ const customerSchema = new Schema({
     required: true,
     unique: true,
   },
+
   // address: {
   //   country: {
   //     type: String,
@@ -48,7 +49,6 @@ const customerSchema = new Schema({
   //   }
   // },
   // dietaryPreference: {
-
   // }
 });
 

@@ -9,8 +9,6 @@ import CustomerReservations from './component/customer_components/CustomerReserv
 import MyRestaurant from './pages/MyRestaurant'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
-import { LoginForRestaurants } from './pages/LoginForRestaurants'
-import { RegisterForRestaurants } from './pages/RegisterForRestaurants'
 import UpdateRestaurant from './pages/UpdateRestaurant'
 import { useState } from 'react';
 
@@ -57,16 +55,8 @@ function App() {
       path: '/'
     },
     {
-      element: <Register/>,
+      element: <Register onSubmit={logInUser}/>,
       path: '/register'
-    },
-    {
-      element:<LoginForRestaurants onSubmit={logInUser}/>,
-      path: '/restaurants/login'
-    },
-    {
-      element:<RegisterForRestaurants/>,
-      path: '/restaurants/register'
     },
     {
       element: <MyRestaurant/>,
