@@ -11,6 +11,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { LoginForRestaurants } from './pages/LoginForRestaurants'
 import { RegisterForRestaurants } from './pages/RegisterForRestaurants'
+import { useState } from 'react';
 
 function App() {
   const [userId, setUserId] = useState('');

@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 function CustomerButtons() {
 
   return (
-    <div>
-      <nav>
+      <nav className="CustomerSidebar">
         <ul>
           <li>
             <button><Link to="/customer/editor">Edit my details</Link></button>
@@ -18,7 +17,6 @@ function CustomerButtons() {
           </li>
         </ul>
       </nav>
-    </div>
   )
 }
 
