@@ -140,10 +140,10 @@ app.get('/api/restaurants', async (req, res) => {
 
 app.get('/api/restaurant/:id', async (req, res) => {
   try {
-
     const restaurantId = req.params.id;
-    const restaurant = await Customer.findById(restaurantId);
-
+    console.log(restaurantId);
+    const restaurant = await Restaurant.findById(restaurantId);
+    console.log(restaurant);
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
