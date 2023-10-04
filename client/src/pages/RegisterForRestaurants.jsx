@@ -48,7 +48,7 @@ export const RegisterForRestaurants = () => {
             <h2>Register your restaurant</h2>
             <form onSubmit={handleSubmit}>
                 <label>
-                    E-mail
+                    E-mail 
                     <input
                         type="email"
                         value={email}
@@ -58,7 +58,7 @@ export const RegisterForRestaurants = () => {
                 </label>
                 <br />
                 <label>
-                    Password
+                    Password 
                     <input
                         type="password"
                         value={password}

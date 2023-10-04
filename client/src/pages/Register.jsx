@@ -43,7 +43,7 @@ export const Register = () => {
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <label>
-                    E-mail
+                    E-mail 
                     <input
                         type="email"
                         value={email}
@@ -53,7 +53,7 @@ export const Register = () => {
                 </label>
                 <br />
                 <label>
-                    Password
+                    Password 
                     <input
                         type="password"
                         value={password}
@@ -65,7 +65,7 @@ export const Register = () => {
                 <button type="submit">Register</button><br/>
             </form>
                 <Link to='/'>Log in</Link><br/>
-                <Link to='/restaurants/login'>Register your Restaurant</Link>
+                <Link to='/restaurants/register'>Register your Restaurant</Link>
         </div>
     );
 };
