@@ -171,4 +171,21 @@ app.patch('/api/restaurant', async (req, res) => {
 })
 
 
+//add tables
+app.post('/api/table/:id', async (req, res) => {
+  try{
+    const restaurantId = req.params.id;
+    const table = req.body;
+    const restaurant = await Restaurant.findById(restaurantId);
+    const tables = restaurant.tables;
+    tables.push(table);
+    await Restaurant.findByIdAndUpdate(restaurantId, {tables: tables});
+    res.send({status: 'added', id: '', seets: ''});
+  } catch(err){
+    console.log(err.message);
+    return res.status(500).send({error: err.message});
+  }
+})
+
+
 app.listen(3000, () => console.log('Server started on port 3000'));
