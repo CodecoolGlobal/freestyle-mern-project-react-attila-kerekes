@@ -27,7 +27,7 @@ app.post('/api/customers', async (req, res, next) => {
       phoneNumber: req.body.phoneNumber
     });
     await customer.save();
-    res.status(201).send(customer);
+    return res.status(201).send(customer);
   } catch (err) {
     next(err);
   }
@@ -62,10 +62,13 @@ app.post('/api/restaurants', async (req, res, next) => {
       phoneNumber: req.body.phoneNumber,
       password: hashedPassword,
       opening: req.body.opening,
-      closing: req.body.closing
+      closing: req.body.closing,
+      cuisine: req.body.cuisine,
+      city: req.body.city
     });
     await restaurant.save();
-    res.status(201).send(restaurant);
+    console.log(restaurant);
+    return res.status(201).send(restaurant);
   } catch (err) {
     next(err);
   }
@@ -140,10 +143,8 @@ app.get('/api/restaurants', async (req, res) => {
 
 app.get('/api/restaurant/:id', async (req, res) => {
   try {
-
     const restaurantId = req.params.id;
     const restaurant = await Restaurant.findById(restaurantId);
-
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
@@ -197,6 +198,23 @@ app.patch('/api/customer', async (req, res) => {
   } catch (err) {
     console.log(err.message);
     return res.status(500).send({ error: err.message });
+  }
+})
+
+
+//add tables
+app.post('/api/table/:id', async (req, res) => {
+  try{
+    const restaurantId = req.params.id;
+    const table = req.body;
+    const restaurant = await Restaurant.findById(restaurantId);
+    const tables = restaurant.tables;
+    tables.push(table);
+    await Restaurant.findByIdAndUpdate(restaurantId, {tables: tables});
+    res.send({status: 'added', id: '', seets: ''});
+  } catch(err){
+    console.log(err.message);
+    return res.status(500).send({error: err.message});
   }
 })
 

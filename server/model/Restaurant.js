@@ -7,6 +7,10 @@ const restaurantSchema = new Schema({
     type: String,
     required: true
   },
+  city: {
+    type: String,
+    required: true
+  },
   // address: {
   //   country: {
   //       type: String,
@@ -38,6 +42,9 @@ const restaurantSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  cuisine: {
+    type: String,
   },
   tables: []
 });

@@ -9,6 +9,7 @@ function RestaurantNav(){
                 <li><button><Link to={`/restaurant/myrestaurant/${id}`}>My restaurant</Link></button></li>
                 <li><button><Link>Resorvations</Link></button></li>
                 <li><button><Link to={`/restaurant/update/${id}`}>Update restaurant data</Link></button></li>
+                <li><button><Link to={`/restaurant/addtable/${id}`}>Add table</Link></button></li>
             </ul>
         </nav>
     )
