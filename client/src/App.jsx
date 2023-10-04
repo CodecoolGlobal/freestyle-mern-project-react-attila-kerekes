@@ -1,8 +1,8 @@
 import './App.css'
 import { useRoutes } from 'react-router-dom'
 import CustomerMain from './component/CustomerMain';
-import About from './component/About';
-import Contact from './component/Contact';
+import About from './component/customer_components/About';
+import Contact from './component/customer_components/Contact';
 import CustomerFindRestaurant from './component/customer_components/CustomerFindRestaurant';
 import CustomerEditor from './component/customer_components/CustomerEditor';
 import CustomerReservations from './component/customer_components/CustomerReservations';
@@ -11,6 +11,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import UpdateRestaurant from './pages/UpdateRestaurant'
 import { useState } from 'react';
+import AddTables from './pages/AddTables';
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -22,7 +23,7 @@ function App() {
   const routes = useRoutes([
       {
       element: <CustomerMain />,
-      path: '/customer',
+      path: '/customer/:id',
       children: [
         {
           element: <About />,
@@ -65,6 +66,10 @@ function App() {
     {
       element: <UpdateRestaurant />,
       path: '/restaurant/update/:id'
+    },
+    {
+      element: <AddTables />,
+      path: '/restaurant/addtable/:id',
     }
   ])
 

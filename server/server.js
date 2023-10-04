@@ -93,7 +93,7 @@ app.post('/api/restaurants/login', async (req, res, next) => {
   }
 })
 
-//GET api/customers/:id
+/* //GET api/customers/:id
 app.get('/api/customers/:id', async (req, res) => {
   try {
     const customerId = req.params.id;
@@ -106,7 +106,7 @@ app.get('/api/customers/:id', async (req, res) => {
     console.error('Error fetching customer:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
-});
+}); */
 
 //GET api/restaurants
 app.get('/api/restaurants', async (req, res) => {
@@ -143,10 +143,10 @@ app.get('/api/restaurants', async (req, res) => {
 
 app.get('/api/restaurant/:id', async (req, res) => {
   try {
-
     const restaurantId = req.params.id;
+    console.log(restaurantId);
     const restaurant = await Restaurant.findById(restaurantId);
-    
+    console.log(restaurant);
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
@@ -154,22 +154,66 @@ app.get('/api/restaurant/:id', async (req, res) => {
   }
 })
 
+app.get('/api/customer/:id', async (req, res) => {
+  try {
+
+    const customerId = req.params.id;
+    const customer = await Customer.findById(customerId);
+
+    res.send(customer);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ error: err.message });
+  }
+})
 
 //Update restaurant informations
 app.patch('/api/restaurant', async (req, res) => {
   try{ 
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    console.log(req.body);
     const restaurant = await Restaurant.findByIdAndUpdate(req.body._id, {
       restaurantName: req.body.restaurantName,
       opening: req.body.opening,
       closing: req.body.closing,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
-      password: hashedPassword
+      password: req.body.password
     });
-    res.json({status: 'updated'});
+    res.json({ status: 'updated' });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ error: err.message });
+  }
+})
+
+//Update customer informations
+app.patch('/api/customer', async (req, res) => {
+  try {
+    console.log(req.body);
+    const customer = await Customer.findByIdAndUpdate(req.body._id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      password: req.body.password
+    });
+    res.json({ status: 'updated' });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ error: err.message });
+  }
+})
+
+
+//add tables
+app.post('/api/table/:id', async (req, res) => {
+  try{
+    const restaurantId = req.params.id;
+    const table = req.body;
+    const restaurant = await Restaurant.findById(restaurantId);
+    const tables = restaurant.tables;
+    tables.push(table);
+    await Restaurant.findByIdAndUpdate(restaurantId, {tables: tables});
+    res.send({status: 'added', id: '', seets: ''});
   } catch(err){
     console.log(err.message);
     return res.status(500).send({error: err.message});
