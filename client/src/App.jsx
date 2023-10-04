@@ -11,6 +11,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import UpdateRestaurant from './pages/UpdateRestaurant'
 import { useState } from 'react';
+import ReservationForm from './component/customer_components/ReservationForm';
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -39,6 +40,10 @@ function App() {
         {
           element: <CustomerFindRestaurant />,
           path: 'restaurants'
+        },
+        {
+          element: <ReservationForm />,
+          path: '?rest=:id'
         },
         {
           element: <CustomerReservations />,
