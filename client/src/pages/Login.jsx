@@ -33,8 +33,8 @@ export const Login = ({onSubmit}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = await login(email, password);
-    onSubmit(user);
+    const customer = await login(email, password);
+    onSubmit(customer.customerId);
     setEmail('');
     setPassword('');
   };
@@ -44,7 +44,7 @@ export const Login = ({onSubmit}) => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          E-mail
+          E-mail 
           <input
             type="email"
             value={email}
@@ -54,7 +54,7 @@ export const Login = ({onSubmit}) => {
         </label>
         <br/>
         <label>
-          Password
+          Password 
           <input
             type="password"
             value={password}
