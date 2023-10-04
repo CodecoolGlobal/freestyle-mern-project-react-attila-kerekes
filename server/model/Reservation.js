@@ -5,7 +5,7 @@ const reservationSchema = new Schema({
     restaurantId: String,
     customerId: String,
     numberOfGuests: Number,
-    tablesBooked: ?,
+    tablesBooked: String,
     createdAt: Date,
     updatedAt: Date
 })
