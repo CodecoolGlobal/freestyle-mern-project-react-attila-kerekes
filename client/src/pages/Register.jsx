@@ -77,7 +77,7 @@ export const Register = ({onSubmit}) => {
             e.preventDefault();
             const restaurant = postDataRestaurant(email, password, name, number, openingTime, closingTime);
             onSubmit(restaurant._id);
-            navigate(`/restaurant/${restaurant._id}`);
+            navigate(`/restaurant/myrestaurant/${restaurant._id}`);
         }
     };
 

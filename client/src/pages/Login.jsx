@@ -40,7 +40,7 @@ export const Login = ({ onSubmit }) => {
         } else {
             const restaurant = await login(email, password, '/api/restaurants/login', setErr);
             onSubmit(restaurant._id);
-            navigate(`/restaurant/${restaurant._id}`);
+            navigate(`/restaurant/myrestaurant/${restaurant._id}`);
         }
     };
 
