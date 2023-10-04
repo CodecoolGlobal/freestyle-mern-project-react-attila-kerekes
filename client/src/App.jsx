@@ -1,8 +1,8 @@
 import './App.css'
 import { useRoutes } from 'react-router-dom'
 import CustomerMain from './component/CustomerMain';
-import About from './component/About';
-import Contact from './component/Contact';
+import About from './component/customer_components/About';
+import Contact from './component/customer_components/Contact';
 import CustomerFindRestaurant from './component/customer_components/CustomerFindRestaurant';
 import CustomerEditor from './component/customer_components/CustomerEditor';
 import CustomerReservations from './component/customer_components/CustomerReservations';
@@ -23,7 +23,7 @@ function App() {
   const routes = useRoutes([
       {
       element: <CustomerMain />,
-      path: '/customer',
+      path: '/customer/:id',
       children: [
         {
           element: <About />,
