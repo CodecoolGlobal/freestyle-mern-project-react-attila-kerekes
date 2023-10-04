@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import RestaurantNav from "../components/RestaurantNav";
 import RestaurantTableElements from '../components/RestaurantTableElements';
 
@@ -34,6 +34,7 @@ function RestaurantMain(){
                     <table>{restaurant.tables.map(table => <RestaurantTableElements key={table.id} table={table}/>)}</table>
                 </div>
             }
+            <button><Link to={`/restaurant/update/${id}`}>Update informations</Link></button>
         </div>
     )
 }
