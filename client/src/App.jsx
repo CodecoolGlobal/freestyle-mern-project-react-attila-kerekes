@@ -4,7 +4,6 @@ import {useRoutes} from 'react-router-dom'
 import RestaurantMain from './pages/RestaurantMain'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
-import { LoginForRestaurants } from './pages/LoginForRestaurants'
 import { RegisterForRestaurants } from './pages/RegisterForRestaurants'
 
 function App() {
@@ -24,16 +23,8 @@ function App() {
       path: '/'
     },
     {
-      element: <Register/>,
+      element: <Register onSubmit={logInUser}/>,
       path: '/register'
-    },
-    {
-      element:<LoginForRestaurants onSubmit={logInUser}/>,
-      path: '/restaurants/login'
-    },
-    {
-      element:<RegisterForRestaurants/>,
-      path: '/restaurants/register'
     },
     {
       element: <RestaurantMain id={'651c167e029b7f8728c00c8d'}/>,
