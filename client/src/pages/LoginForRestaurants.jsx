@@ -34,7 +34,7 @@ export const LoginForRestaurants = ({ onSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const restaurant = await login(email, password);
-        onSubmit(restaurant);
+        onSubmit(restaurant.restaurantId);
         setEmail('');
         setPassword('');
     };
@@ -44,7 +44,7 @@ export const LoginForRestaurants = ({ onSubmit }) => {
             <h2>Login for restaurants</h2>
             <form onSubmit={handleSubmit}>
                 <label>
-                    E-mail
+                    E-mail 
                     <input
                         type="email"
                         value={email}
@@ -54,7 +54,7 @@ export const LoginForRestaurants = ({ onSubmit }) => {
                 </label>
                 <br />
                 <label>
-                    Password
+                    Password 
                     <input
                         type="password"
                         value={password}

@@ -18,7 +18,7 @@ app.use(express.json());
 app.post('/api/customers', async (req, res, next) => {
   try {
     const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const customer = new Customer({
       email: req.body.email,
       password: hashedPassword
@@ -39,7 +39,6 @@ app.post('/api/customers/login', async (req, res, next) => {
   try {
     const isPasswordValid = await bcrypt.compare(req.body.password, customer.password);
     if (isPasswordValid) {
-      console.log(customer);
       return res.json({ customerId: customer._id });
     } else {
       return res.status(401).json({ message: 'Incorrect password' });
