@@ -5,7 +5,6 @@ import RestaurantNav from "../components/RestaurantNav";
 
 function RestaurantMain(){
     const [restaurant, setRestaurant] = useState(null);
-    const [resorvation, setResorvation] = useState(null);
     const {id} = useParams();
 
     useEffect(() => {
@@ -17,13 +16,12 @@ function RestaurantMain(){
         fetchData();
     }, [])
 
+
     console.log(restaurant);
 
     return(
         <div className="restaurantMain">
             <RestaurantNav />
-            {resorvation ? <h3>Resorvations: </h3> : <h3>You dont have any resorvation booked</h3>}
-            {/*Show resorvations */}
         </div>
     )
 }
