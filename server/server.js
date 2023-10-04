@@ -155,16 +155,13 @@ app.get('/api/restaurant/:id', async (req, res) => {
 //Update restaurant informations
 app.patch('/api/restaurant', async (req, res) => {
   try{ 
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    console.log(req.body);
     const restaurant = await Restaurant.findByIdAndUpdate(req.body._id, {
       restaurantName: req.body.restaurantName,
       opening: req.body.opening,
       closing: req.body.closing,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
-      password: hashedPassword
+      password: req.body.password
     });
     res.json({status: 'updated'});
   } catch(err){
