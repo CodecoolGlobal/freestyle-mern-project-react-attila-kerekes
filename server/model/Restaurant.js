@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const restaurantSchema = new Schema({
+
   restaurantName: {
     type: String,
     required: true
