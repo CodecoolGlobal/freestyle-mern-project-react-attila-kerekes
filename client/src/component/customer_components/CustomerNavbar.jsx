@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function CustomerNavbar() {
+function CustomerNavbar({id}) {
 
   return (
     <nav className="CustomerNavbar">
-      <button><Link to="/customer/hello">REST(aurant)api</Link></button>
-      <button><Link to="/customer/about">About</Link></button>
-      <button><Link to="/customer/contact">Contact</Link></button>
+      <button><Link to={`/customer/${id}/hello`}>REST(aurant)api</Link></button>
+      <button><Link to={`/customer/${id}/about`}>About</Link></button>
+      <button><Link to={`/customer/${id}/contact`}>Contact</Link></button>
     </nav>
   )
 }
