@@ -143,10 +143,33 @@ app.get('/api/restaurant/:id', async (req, res) => {
 
     const restaurantId = req.params.id;
     const restaurant = await Restaurant.findById(restaurantId);
+    
     res.send(restaurant);
   } catch (err) {
     console.log(err.message);
     return res.status(500).send({ error: err.message });
+  }
+})
+
+
+//Update restaurant informations
+app.patch('/api/restaurant', async (req, res) => {
+  try{ 
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    console.log(req.body);
+    const restaurant = await Restaurant.findByIdAndUpdate(req.body._id, {
+      restaurantName: req.body.restaurantName,
+      opening: req.body.opening,
+      closing: req.body.closing,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      password: hashedPassword
+    });
+    res.json({status: 'updated'});
+  } catch(err){
+    console.log(err.message);
+    return res.status(500).send({error: err.message});
   }
 })
 
