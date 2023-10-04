@@ -36,7 +36,7 @@ export const Login = ({ onSubmit }) => {
         if (isCustomer) {
             const customer = await login(email, password, '/api/customers/login', setErr);
             onSubmit(customer._id);
-            navigate("/customer");
+            navigate(`/customer/${customer._id}`);
         } else {
             const restaurant = await login(email, password, '/api/restaurants/login', setErr);
             onSubmit(restaurant._id);
