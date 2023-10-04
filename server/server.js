@@ -27,7 +27,7 @@ app.post('/api/customers', async (req, res, next) => {
       phoneNumber: req.body.phoneNumber
     });
     await customer.save();
-    res.status(201).send(customer);
+    return res.status(201).send(customer);
   } catch (err) {
     next(err);
   }
@@ -62,10 +62,13 @@ app.post('/api/restaurants', async (req, res, next) => {
       phoneNumber: req.body.phoneNumber,
       password: hashedPassword,
       opening: req.body.opening,
-      closing: req.body.closing
+      closing: req.body.closing,
+      cuisine: req.body.cuisine,
+      city: req.body.city
     });
     await restaurant.save();
-    res.status(201).send(restaurant);
+    console.log(restaurant);
+    return res.status(201).send(restaurant);
   } catch (err) {
     next(err);
   }
