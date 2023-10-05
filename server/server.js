@@ -255,10 +255,13 @@ app.get('/api/restaurant/reservations/:id', async (req, res) => {
     const restaurantId = req.params.id;
     const reservations = await Reservation.find({restaurantId: restaurantId});
 
-    const customers = await Promise.all(reservations.map(reservation => Customer.find({customerId: reservation.customerId})));
+    const customers = await Promise.all(reservations.map(async (reservation) => {
+      const customer = await Customer.findById(reservation.customerId);
+      return customer;
+    }));
     console.log(customers);
 
-    res.send(customers);
+    res.send();
   } catch(err){
     console.log(err.message);
     return res.status(500).send({error: err.message});
