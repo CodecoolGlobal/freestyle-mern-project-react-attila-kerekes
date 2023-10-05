@@ -91,22 +91,7 @@ app.post('/api/restaurants/login', async (req, res, next) => {
   }
 })
 
-/* //GET api/customers/:id
-app.get('/api/customers/:id', async (req, res) => {
-  try {
-    const customerId = req.params.id;
-    const customer = await Customer.findById(customerId)
-    if (!customer) {
-      return res.status(404).json({ success: false, message: 'Customer not found' });
-    }
-    res.json({ success: true, customer })
-  } catch (error) {
-    console.error('Error fetching customer:', error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
-  }
-}); */
-
-//GET api/restaurants
+//get all restaurants
 app.get('/api/restaurants', async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
@@ -117,28 +102,7 @@ app.get('/api/restaurants', async (req, res) => {
   }
 });
 
-//POST api/reservation
-/* app.post('/api/reservation', (req, res) => {
-  const restaurantId = ;
-  const customerId = ;
-  const numberOfGuests = ;
-  const tablesBooked = ;
-  const createdAt = Date.now();
-  const updatedAt = Date.now();
-
-  const reservation = new Reservation({
-    restaurantId,
-    customerId,
-    numberOfGuests,
-    tablesBooked,
-    createdAt,
-    updatedAt
-  })
-  reservation.save()
-    .then(reservation => res.json(reservation))
-    .catch(err => res.status(400).json({ success: false }))
-}) */
-
+//get one restaurant by id
 app.get('/api/restaurant/:id', async (req, res) => {
   try {
     const restaurantId = req.params.id;
@@ -150,6 +114,7 @@ app.get('/api/restaurant/:id', async (req, res) => {
   }
 })
 
+//get one customer by id
 app.get('/api/customer/:id', async (req, res) => {
   try {
 
@@ -220,13 +185,9 @@ app.post('/api/table/:id', async (req, res) => {
   }
 })
 
+//add reservation
 app.post('/api/reservations', async (req, res, next) => {
   try {
-    // req.body = {
-    //  customerID,
-    //  restaurantID,
-    //  numberOfGuests
-    // }
     const customerId = req.body.customerId;
     const restaurantId = req.body.restaurantId;
     const numberOfGuests = Number(req.body.numberOfGuests);
@@ -259,6 +220,8 @@ app.post('/api/reservations', async (req, res, next) => {
     next (err);
   }
 })
+
+//get all reservations for one customer by id
 
 
 app.listen(3000, () => console.log('Server started on port 3000'));
