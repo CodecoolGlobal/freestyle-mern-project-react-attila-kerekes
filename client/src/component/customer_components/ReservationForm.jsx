@@ -8,8 +8,8 @@ function ReservationForm({ onUpdate }) {
   const [reservationInfo, setReservationInfo] = useState({});
   const [restaurant, setRestaurant] = useState(null);
 
-  reservationInfo.customerID = id;
-  reservationInfo.restaurantID = id2;
+  reservationInfo.customerId = id;
+  reservationInfo.restaurantId = id2;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +22,7 @@ function ReservationForm({ onUpdate }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const post = await fetch('/api/reservation', {
+    const post = await fetch('/api/reservations', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -52,7 +52,7 @@ function ReservationForm({ onUpdate }) {
             <form onSubmit={handleSubmit}>
               <label>How many guests can we expect? </label>
               <br />
-              <input type="number" name="guestNumber" onChange={(event) => { setReservationInfo(prev => ({ ...prev, numberOfGuests: Number(event.target.value) })) }} />
+              <input type="number" name="guestNumber" onChange={(event) => { setReservationInfo(prev => ({ ...prev, numberOfGuests: event.target.value })) }} />
               <br />
               <button>Send booking request</button>
             </form>
