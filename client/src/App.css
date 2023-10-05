@@ -1,24 +1,12 @@
-/* body, div, ul, li, button {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border: none;
-  background: none;
-  font: inherit;
-  color: inherit;
-} */
-
-/* body, #root {
+#root {
   width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-} */
+
+}
 
 .CustomerMain {
   display: flex;
   flex-direction: column;
-  width: 100vh;
+  width: 100vw;
   height: 100vh;
 }
 

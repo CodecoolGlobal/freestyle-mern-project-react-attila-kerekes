@@ -5,7 +5,7 @@ function CustomerNavbar({id}) {
 
   return (
     <nav className="CustomerNavbar">
-      <button><Link to={`/customer/${id}/hello`}>REST(aurant)api</Link></button>
+      <button><Link to={`/`}>Logout</Link></button>
       <button><Link to={`/customer/${id}/about`}>About</Link></button>
       <button><Link to={`/customer/${id}/contact`}>Contact</Link></button>
     </nav>
