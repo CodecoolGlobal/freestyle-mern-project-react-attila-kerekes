@@ -35,3 +35,8 @@
   background-color: #b83c24;
   overflow: scroll;
 }
+
+.CustomerContent > div {
+  display: flex;
+  flex-wrap: wrap;
+}
