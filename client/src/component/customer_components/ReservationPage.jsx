@@ -7,8 +7,8 @@ function ReservationPage(){
 
     return(
         <div className="restaurantReservation">
-            {updateSuccess === null && <h2>Book your table!</h2>}
-            {updateSuccess === null ? <ReservationForm onUpdate={(isSuccess) => {setUpdateSuccess(isSuccess)}}/> : updateSuccess === true  ? <h2>The booking was successful!</h2> : <h2>Sorry! There are no available tables for your requirements.</h2>}
+            {updateSuccess === null && <h2>Book your table:</h2>}
+            {updateSuccess === null ? <ReservationForm onUpdate={(isSuccess) => {setUpdateSuccess(isSuccess)}}/> : updateSuccess === true  ? <h2>The booking was successful!</h2> : <h2>Sorry! There is no available table with your requirements.</h2>}
 
         </div>
     )
