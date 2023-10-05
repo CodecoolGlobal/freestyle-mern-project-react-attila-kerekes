@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import RestaurantNav from "../components/RestaurantNav";
 import RestaurantTableElements from '../components/RestaurantTableElements';
+import CustomerNavbar from '../component/customer_components/CustomerNavbar';
 
 
 function RestaurantMain(){
@@ -21,7 +22,8 @@ function RestaurantMain(){
     console.log(restaurant);
 
     return(
-        <div className="restaurantMain">
+        <div className="restaurantMain restaurant-display">
+            <CustomerNavbar />
             <RestaurantNav />
             {restaurant && 
                 <div className="my-restaurant">

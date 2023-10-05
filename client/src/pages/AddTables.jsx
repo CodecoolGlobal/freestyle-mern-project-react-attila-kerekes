@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RestaurantNav from "../components/RestaurantNav";
 import { useParams } from "react-router-dom";
+import CustomerNavbar from '../component/customer_components/CustomerNavbar';
 
 
 function AddTables(){
@@ -24,7 +25,8 @@ function AddTables(){
     }
 
     return(
-        <div className="add-table">
+        <div className="add-table restaurant-display">
+            <CustomerNavbar />
             <RestaurantNav />
             <form onSubmit={handleSubmit}>
                 <label>Table id: </label>

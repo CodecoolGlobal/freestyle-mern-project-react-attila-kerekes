@@ -4,7 +4,7 @@ function RestaurantNav(){
     const {id} = useParams();
 
     return (
-        <nav>
+        <nav className="CustomerSidebar">
             <ul>
                 <li><button><Link to={`/restaurant/myrestaurant/${id}`}>My restaurant</Link></button></li>
                 <li><button><Link to={`/restaurant/reservations/${id}`}>Resorvations</Link></button></li>

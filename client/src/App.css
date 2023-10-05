@@ -1,6 +1,6 @@
 #root {
   width: 100%;
-
+  height: 100vh;
 }
 
 .CustomerMain {
@@ -35,3 +35,5 @@
   background-color: #b83c24;
   overflow: scroll;
 }
+
+
