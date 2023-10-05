@@ -130,7 +130,7 @@ app.get('/api/customer/:id', async (req, res) => {
 
 //Update restaurant informations
 app.patch('/api/restaurant', async (req, res) => {
-  try{ 
+  try {
     const restaurant = await Restaurant.findByIdAndUpdate(req.body._id, {
       restaurantName: req.body.restaurantName,
       opening: req.body.opening,
@@ -166,7 +166,7 @@ app.patch('/api/customer', async (req, res) => {
 
 //add tables
 app.post('/api/table/:id', async (req, res) => {
-  try{
+  try {
     const restaurantId = req.params.id;
     const reqTable = req.body;
     const table = {
@@ -177,11 +177,11 @@ app.post('/api/table/:id', async (req, res) => {
     const restaurant = await Restaurant.findById(restaurantId);
     const tables = restaurant.tables;
     tables.push(table);
-    await Restaurant.findByIdAndUpdate(restaurantId, {tables: tables});
-    res.send({status: 'added', id: '', seets: ''});
-  } catch(err){
+    await Restaurant.findByIdAndUpdate(restaurantId, { tables: tables });
+    res.send({ status: 'added', id: '', seets: '' });
+  } catch (err) {
     console.log(err.message);
-    return res.status(500).send({error: err.message});
+    return res.status(500).send({ error: err.message });
   }
 })
 
@@ -194,12 +194,12 @@ app.post('/api/reservations', async (req, res, next) => {
     const restaurant = await Restaurant.findById(restaurantId);
     const tables = restaurant.tables;
     const availableTables = tables.filter((table) => table.available === true);
-    const sortedTables = availableTables.sort((a,b) => a.seats - b.seats);
+    const sortedTables = availableTables.sort((a, b) => a.seats - b.seats);
     const table = sortedTables.find((table) => {
       return table.seats >= numberOfGuests && table.seats <= numberOfGuests + 2;
     });
     if (!table) {
-      return res.status(404).send({error: "Table not found"});
+      return res.status(404).send({ error: "Table not found" });
     }
     const updatedTables = restaurant.tables.map((currentTable) => {
       if (currentTable.id === table.id) {
@@ -207,7 +207,7 @@ app.post('/api/reservations', async (req, res, next) => {
       }
       return currentTable;
     })
-    await Restaurant.findByIdAndUpdate(restaurantId, {tables: updatedTables});
+    await Restaurant.findByIdAndUpdate(restaurantId, { tables: updatedTables });
     const reservation = {
       numberOfGuests: numberOfGuests,
       customerId: customerId,
@@ -215,14 +215,28 @@ app.post('/api/reservations', async (req, res, next) => {
       tableId: table.id
     }
     await Reservation.create(reservation);
-    return res.json({message: "Table booked"});
+    return res.json({ message: "Table booked" });
   } catch (err) {
-    next (err);
+    next(err);
   }
 })
 
 //get all reservations for one customer by id
-
+app.get('/api/reservations/customer/:id', async (req, res, next) => {
+  try {
+    const reservations = await Reservation.find({ customerId: req.params.id });
+    const result = await Promise.all(reservations.map(async (reservation) => {
+      const restaurant = await Restaurant.findById(reservation.restaurantId);
+      console.log(restaurant);
+      reservation.restaurantId = restaurant.restaurantName;
+      return reservation;
+    }));
+    console.log(result);
+    return res.json({ reservations: result });
+  } catch (err) {
+    next(err);
+  }
+});
 
 
 
