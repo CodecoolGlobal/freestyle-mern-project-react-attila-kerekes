@@ -2,57 +2,63 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-function ReservationForm() {
-  const [restaurantToBook, setRestaurantToBook] = useState({});
-  const [searchParams, setSearchParams] = useSearchParams()
+function ReservationForm({ onUpdate }) {
+
+  const { id, id2 } = useParams();
+  const [reservationInfo, setReservationInfo] = useState({});
+  const [restaurant, setRestaurant] = useState(null);
+
+  reservationInfo.customerID = id;
+  reservationInfo.restaurantID = id2;
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`/api/restaurant/${id}`);
-      const customerData = await response.json();
-      setCustomerInfo(customerData);
+      const response = await fetch(`/api/restaurant/${id2}`);
+      const restaurantData = await response.json();
+      setRestaurant(restaurantData);
     }
     fetchData();
   }, [])
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const patch = await fetch('/api/customer', {
-      method: 'PATCH',
+    const post = await fetch('/api/reservation', {
+      method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(customerInfo)
+      body: JSON.stringify(reservationInfo)
     });
 
-    const response = await patch.json();
-    if (response.status === 'updated') {
+    const response = await post.json();
+    if (response.message === 'Table booked') {
       onUpdate(true);
     } else {
       onUpdate(false);
     }
-
   }
 
   return (
     <div>
-      <h1>Editor</h1>
-
-      <form onSubmit={handleSubmit}>
-        <label>First name: </label>
-        <input type="text" name="firstName" value={customerInfo.firstName} onChange={(event) => { setCustomerInfo(prev => ({ ...prev, firstName: event.target.value })) }} />
-        <br />
-        <label>Last name: </label>
-        <input type="text" name="lastName" value={customerInfo.lastName} onChange={(event) => { setCustomerInfo(prev => ({ ...prev, lastName: event.target.value })) }} />
-        <br />
-        <label>Email address: </label>
-        <input type="email" name="email" value={customerInfo.email} onChange={(event) => { setCustomerInfo(prev => ({ ...prev, email: event.target.value })) }} />
-        <br />
-        <label>Phone number: </label>
-        <input type="number" name="phoneNumber" value={Number(customerInfo.phoneNumber)} onChange={(event) => { setCustomerInfo(prev => ({ ...prev, phoneNumber: Number(event.target.value) })) }} />
-        <br />
-        <button>Update informations</button>
-      </form>
+      <h1>Reservation</h1>
+      <div className="restaurantContainer">
+        {restaurant &&
+          <div className="restaurantDetails">
+            <p>Restaurant name: {restaurant.restaurantName}</p>
+            <p>Opening: {restaurant.opening}</p>
+            <p>Closing: {restaurant.closing}</p>
+            <p>Email address: {restaurant.email}</p>
+            <p>Phone number: {restaurant.phoneNumber}</p>
+            <form onSubmit={handleSubmit}>
+              <label>How many guests can we expect? </label>
+              <br />
+              <input type="number" name="guestNumber" onChange={(event) => { setReservationInfo(prev => ({ ...prev, numberOfGuests: Number(event.target.value) })) }} />
+              <br />
+              <button>Send booking request</button>
+            </form>
+          </div>
+        }
+      </div>
     </div>
   )
 }
