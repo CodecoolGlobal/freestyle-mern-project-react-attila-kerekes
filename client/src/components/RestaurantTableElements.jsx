@@ -3,8 +3,8 @@ function RestaurantTableElements({table}){
     return (
         <tr>
             <td>{table.id}</td>
-            <td>{table.seets}</td>
-            <td>{table.avaible ? <p>Avaible</p> : <p style={{color: 'red'}}>Not avaible</p>}</td>
+            <td>{table.seats}</td>
+            <td>{table.available ? <p>Available</p> : <p style={{color: 'red'}}>Not available</p>}</td>
         </tr>
     )
 }

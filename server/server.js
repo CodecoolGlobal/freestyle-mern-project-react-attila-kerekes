@@ -67,7 +67,6 @@ app.post('/api/restaurants', async (req, res, next) => {
       city: req.body.city
     });
     await restaurant.save();
-    console.log(restaurant);
     return res.status(201).send(restaurant);
   } catch (err) {
     next(err);
@@ -83,7 +82,6 @@ app.post('/api/restaurants/login', async (req, res, next) => {
   try {
     const isPasswordValid = await bcrypt.compare(req.body.password, restaurant.password);
     if (isPasswordValid) {
-      console.log(restaurant);
       return res.json({ _id: restaurant._id });
     } else {
       return res.status(401).json({ message: 'Incorrect password' });
@@ -186,7 +184,6 @@ app.patch('/api/restaurant', async (req, res) => {
 //Update customer informations
 app.patch('/api/customer', async (req, res) => {
   try {
-    console.log(req.body);
     const customer = await Customer.findByIdAndUpdate(req.body._id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -206,7 +203,12 @@ app.patch('/api/customer', async (req, res) => {
 app.post('/api/table/:id', async (req, res) => {
   try{
     const restaurantId = req.params.id;
-    const table = req.body;
+    const reqTable = req.body;
+    const table = {
+      available: reqTable.available,
+      id: Number(reqTable.id),
+      seats: Number(reqTable.seats)
+    }
     const restaurant = await Restaurant.findById(restaurantId);
     const tables = restaurant.tables;
     tables.push(table);
@@ -215,6 +217,46 @@ app.post('/api/table/:id', async (req, res) => {
   } catch(err){
     console.log(err.message);
     return res.status(500).send({error: err.message});
+  }
+})
+
+app.post('/api/reservations', async (req, res, next) => {
+  try {
+    // req.body = {
+    //  customerID,
+    //  restaurantID,
+    //  numberOfGuests
+    // }
+    const customerId = req.body.customerId;
+    const restaurantId = req.body.restaurantId;
+    const numberOfGuests = Number(req.body.numberOfGuests);
+    const restaurant = await Restaurant.findById(restaurantId);
+    const tables = restaurant.tables;
+    const availableTables = tables.filter((table) => table.available === true);
+    const sortedTables = availableTables.sort((a,b) => a.seats - b.seats);
+    const table = sortedTables.find((table) => {
+      return table.seats >= numberOfGuests && table.seats <= numberOfGuests + 2;
+    });
+    if (!table) {
+      return res.status(404).send({error: "Table not found"});
+    }
+    const updatedTables = restaurant.tables.map((currentTable) => {
+      if (currentTable.id === table.id) {
+        currentTable.available = false;
+      }
+      return currentTable;
+    })
+    await Restaurant.findByIdAndUpdate(restaurantId, {tables: updatedTables});
+    const reservation = {
+      numberOfGuests: numberOfGuests,
+      customerId: customerId,
+      restaurantId: restaurantId,
+      tableId: table.id
+    }
+    await Reservation.create(reservation);
+    return res.json({message: "Table booked"});
+  } catch (err) {
+    next (err);
   }
 })
 

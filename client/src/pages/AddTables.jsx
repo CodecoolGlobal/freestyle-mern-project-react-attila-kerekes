@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 
 function AddTables(){
-    const [table, setTable] = useState({avaible: true});
+    const [table, setTable] = useState({available: true});
     const {id} = useParams();
 
     async function handleSubmit(event){
@@ -19,7 +19,7 @@ function AddTables(){
 
         const response = await post.json();
         if(response.status === 'added'){
-            setTable({avaible: true});
+            setTable({available: true});
         }
     }
 
@@ -31,7 +31,7 @@ function AddTables(){
                 <input type="number" value={table.id} required onChange={(event) => {setTable(prev => ({...prev, id: event.target.value}))}}/>
                 <br />
                 <label>Seets count: </label>
-                <input type="number" required value={table.seets} onChange={(event) => {setTable(prev => ({...prev, seets: event.target.value}))}}/>
+                <input type="number" required value={table.seats} onChange={(event) => {setTable(prev => ({...prev, seats: event.target.value}))}}/>
                 <br />
                 <button>Add table</button>
             </form>
