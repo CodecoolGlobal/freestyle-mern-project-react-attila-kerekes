@@ -224,4 +224,32 @@ app.post('/api/reservations', async (req, res, next) => {
 //get all reservations for one customer by id
 
 
+
+
+
+
+
+
+
+
+
+
+
+//get restaurant reservations
+app.get('/api/restaurant/reservations/:id', async (req, res) => {
+  try{
+    const restaurantId = req.params.id;
+    const reservations = await Reservation.find({restaurantId: restaurantId});
+
+    const customers = await Promise.all(reservations.map(reservation => Customer.find({customerId: reservation.customerId})));
+    console.log(customers);
+
+    res.send(customers);
+  } catch(err){
+    console.log(err.message);
+    return res.status(500).send({error: err.message});
+  }
+})
+
+
 app.listen(3000, () => console.log('Server started on port 3000'));
