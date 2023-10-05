@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import RestaurantNav from "../components/RestaurantNav";
 import RestaurantTableElements from '../components/RestaurantTableElements';
+import CustomerNavbar from '../component/customer_components/CustomerNavbar';
 
 
 function RestaurantMain(){
@@ -21,7 +22,8 @@ function RestaurantMain(){
     console.log(restaurant);
 
     return(
-        <div className="restaurantMain">
+        <div className="restaurantMain restaurant-display">
+            <CustomerNavbar />
             <RestaurantNav />
             {restaurant && 
                 <div className="my-restaurant">
@@ -32,7 +34,14 @@ function RestaurantMain(){
                     <p>Phone number: {restaurant.phoneNumber}</p>
                     <button><Link to={`/restaurant/update/${id}`}>Update informations</Link></button>
                     <p>Tables: {restaurant.tables.length ? restaurant.tables.length : 'You don\'t have any tables!'}</p>
-                    <table>{restaurant.tables.map(table => <RestaurantTableElements key={table.id} table={table}/>)}</table>
+                    <table>
+                        <tr>
+                            <th>Table Id:</th>
+                            <th>Seets:</th>
+                            <th>Avaible:</th>
+                        </tr>
+                        {restaurant.tables.map(table => <RestaurantTableElements key={table.id} table={table}/>)}
+                    </table>
                 </div>
             }
         </div>
