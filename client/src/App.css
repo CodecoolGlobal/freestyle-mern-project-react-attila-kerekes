@@ -1,4 +1,4 @@
-body, div, ul, li, button {
+/* body, div, ul, li, button {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -6,15 +6,14 @@ body, div, ul, li, button {
   background: none;
   font: inherit;
   color: inherit;
-}
+} */
 
-body, #root {
+/* body, #root {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-}
+} */
 
 .CustomerMain {
   display: flex;
@@ -25,30 +24,26 @@ body, #root {
 
 .CustomerNavbar {
   background-color: #3498db;
-  padding: 10px;
-  text-align: center;
+  padding: 20px;
   height: 60px;
 }
 
 .CustomerDisplayBelow {
   display: flex;
+  flex-direction: row;
   flex: 1;
-  overflow: hidden;
-  height: calc(100% - 60px);
 }
 
 .CustomerSidebar {
   background-color: #0c6aa9;
-  padding: 10px;
-  width: 200px;
+  padding: 20px;
+  width: 250px;
+  align-content: space-evenly;
 }
 
 .CustomerContent {
   flex-grow: 1;
   padding: 10px;
   background-color: #b83c24;
-}
-
-button {
-  user-select: none;
+  overflow: scroll;
 }

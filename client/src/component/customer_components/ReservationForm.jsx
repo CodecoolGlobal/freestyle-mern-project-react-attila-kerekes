@@ -8,8 +8,8 @@ function ReservationForm({ onUpdate }) {
   const [reservationInfo, setReservationInfo] = useState({});
   const [restaurant, setRestaurant] = useState(null);
 
-  reservationInfo.customerID = id;
-  reservationInfo.restaurantID = id2;
+  reservationInfo.customerId = id;
+  reservationInfo.restaurantId = id2;
 
   useEffect(() => {
     const fetchData = async () => {
