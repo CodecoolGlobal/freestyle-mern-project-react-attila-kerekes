@@ -99,3 +99,7 @@
 .add-table > form{
   margin-top: 10%;
 }
+.CustomerContent > div {
+  display: flex;
+  flex-wrap: wrap;
+}
