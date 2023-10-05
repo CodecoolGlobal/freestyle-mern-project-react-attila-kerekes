@@ -12,6 +12,7 @@ import { Register } from './pages/Register'
 import UpdateRestaurant from './pages/UpdateRestaurant'
 import { useState } from 'react';
 import AddTables from './pages/AddTables';
+import RestaurantReservation from './pages/RestaurantReservation';
 import ReservationPage from './component/customer_components/ReservationPage';
 
 function App() {
@@ -75,6 +76,10 @@ function App() {
     {
       element: <AddTables />,
       path: '/restaurant/addtable/:id',
+    },
+    {
+      path: '/restaurant/reservations/:id',
+      element: <RestaurantReservation />
     }
   ])
 
