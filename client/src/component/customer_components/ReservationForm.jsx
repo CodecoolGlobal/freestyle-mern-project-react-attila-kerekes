@@ -22,7 +22,7 @@ function ReservationForm({ onUpdate }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const post = await fetch('/api/reservation', {
+    const post = await fetch('/api/reservations', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
