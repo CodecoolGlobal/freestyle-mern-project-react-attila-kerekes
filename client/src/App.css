@@ -1,6 +1,6 @@
 #root {
   width: 100%;
-
+  height: 100vh;
 }
 
 .CustomerMain {
@@ -36,6 +36,69 @@
   overflow: scroll;
 }
 
+.my-restaurant{
+  width: 80%;
+  float: right;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-restaurant > p{
+  text-align: center;
+}
+
+.restaurant-sidebar{
+  height: 100vh;
+  width: 15%;
+  position: absolute;
+}
+
+.my-restaurant > table{
+  border: 1px solid black;
+}
+
+.my-restaurant > table td{
+  width: 33%;
+  padding: 10px;
+}
+
+.my-restaurant > table > tr:nth-child(even) {
+  background-color: #8f8383d2;
+}
+
+
+.restaurant-reservation{
+  text-align: center;
+}
+
+.reservation-cards{
+  margin-top: 5%;
+}
+
+.restaurant-reservation > h3{
+  margin-top: 10%;
+}
+
+.restaurant-sidebar > ul{
+  list-style: none;
+}
+
+.restaurant-display{
+  text-align: center;
+}
+
+.update-restaurant > h3{
+  margin-top: 10%;
+}
+
+.update-restaurant > form{
+  margin-top: 5%;
+}
+
+.add-table > form{
+  margin-top: 10%;
+}
 .CustomerContent > div {
   display: flex;
   flex-wrap: wrap;
