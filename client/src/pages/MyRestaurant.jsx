@@ -30,11 +30,11 @@ function RestaurantMain(){
                     <p>Closing: {restaurant.closing}</p>
                     <p>Email address: {restaurant.email}</p>
                     <p>Phone number: {restaurant.phoneNumber}</p>
+                    <button><Link to={`/restaurant/update/${id}`}>Update informations</Link></button>
                     <p>Tables: {restaurant.tables.length ? restaurant.tables.length : 'You don\'t have any tables!'}</p>
                     <table>{restaurant.tables.map(table => <RestaurantTableElements key={table.id} table={table}/>)}</table>
                 </div>
             }
-            <button><Link to={`/restaurant/update/${id}`}>Update informations</Link></button>
         </div>
     )
 }
