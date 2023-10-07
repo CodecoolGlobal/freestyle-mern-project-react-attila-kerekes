@@ -8,12 +8,12 @@ function CustomerReservations() {
   console.log(id);
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData () {
       const response = await fetch(`/api/reservations/customer/${id}`);
       const data = await response.json();
       return data.reservations;
     }
-    fetchData().then((res) => setReservations(res));
+    fetchData()
   }, [])
 
   return (
