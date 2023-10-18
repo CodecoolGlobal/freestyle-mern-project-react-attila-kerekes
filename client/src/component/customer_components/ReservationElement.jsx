@@ -2,8 +2,10 @@ function ReservationElement({reservation}){
 
     return (
         <div>
+            <p>Restaurant: {reservation.restaurant.restaurantName}</p>
             <p>Guests: {reservation.numberOfGuests}</p>
-            <p>Restaurant: {reservation.restaurantId}</p>
+            <p>Email: {reservation.restaurant.email}</p>
+            <p>Phone number: +{reservation.restaurant.phoneNumber}</p>
         </div>
     )
 }

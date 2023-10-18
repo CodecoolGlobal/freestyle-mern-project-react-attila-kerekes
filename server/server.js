@@ -119,7 +119,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
       try {
 
         const customerId = req.params.id;
-        const customer = await Customer.findById(customerId).populate('reservations');
+        const customer = await Customer.findById(customerId).populate('reservations').populate({path: 'reservations', populate: {path: 'restaurant'}});
 
         res.send(customer);
       } catch (err) {
