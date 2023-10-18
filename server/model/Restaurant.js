@@ -48,8 +48,8 @@ const restaurantSchema = new Schema({
   },
   tables: [
     {
-      avaible: Boolean,
-      id: Number,
+      available: Boolean,
+      tableId: Number,
       seats: Number
     }
   ],

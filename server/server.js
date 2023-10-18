@@ -14,7 +14,6 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
 
     // CUSTOMER requests
 
-
     //register customer
     app.post('/api/customers', async (req, res, next) => {
       try {
@@ -172,7 +171,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
         const reqTable = req.body;
         const table = {
           available: reqTable.available,
-          id: Number(reqTable.id),
+          tableId: Number(reqTable.tableId),
           seats: Number(reqTable.seats)
         }
         const restaurant = await Restaurant.findById(restaurantId);
@@ -209,12 +208,12 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
           return currentTable;
         })
         await Restaurant.findByIdAndUpdate(restaurantId, { tables: updatedTables });
-        const reservation = {
+        /* const reservation = {
           numberOfGuests: numberOfGuests,
           customerId: customerId,
           restaurantId: restaurantId,
           tableId: table.id
-        }
+        } */
         await Reservation.create(reservation);
         return res.json({ message: "Table booked" });
       } catch (err) {
