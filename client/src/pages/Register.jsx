@@ -76,7 +76,7 @@ export const Register = ({onSubmit}) => {
             e.preventDefault();
             const customer = await postData(email, password, firstName, lastName, number);
             onSubmit(customer._id);
-            navigate("/customer");
+            navigate(`/customer/${customer._id}`);
         } else {
             e.preventDefault();
             const restaurant = await postDataRestaurant(email, password, name, number, openingTime, closingTime, cuisine, city);

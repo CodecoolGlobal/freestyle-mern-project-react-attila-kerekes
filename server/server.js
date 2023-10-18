@@ -14,6 +14,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
 
     // CUSTOMER requests
 
+
     //register customer
     app.post('/api/customers', async (req, res, next) => {
       try {
