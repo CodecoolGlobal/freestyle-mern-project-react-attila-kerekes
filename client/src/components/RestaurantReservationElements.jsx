@@ -4,9 +4,9 @@ function RestaurantReservationElements({customerData}){
         <div className="reservation-cards">
             <p>Customer name: {customerData.customer.firstName} {customerData.customer.lastName}</p>
             <p>Email address: {customerData.customer.email}</p>
-            <p>Phone number: {customerData.customer.phoneNumber}</p>
+            <p>Phone number: +{customerData.customer.phoneNumber}</p>
             <p>Number of guests: {customerData.customer.numberOfGuests}</p>
-            <p>Table id: {customerData.customer.tableId}</p>
+            <p>Table id: {customerData.tableId}</p>
         </div>
     )
 }
