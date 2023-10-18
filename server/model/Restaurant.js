@@ -46,7 +46,23 @@ const restaurantSchema = new Schema({
   cuisine: {
     type: String,
   },
-  tables: []
+  tables: [
+    {
+      avaible: Boolean,
+      id: Number,
+      seats: Number
+    }
+  ],
+  reservations: [
+    {
+      customer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer'
+      },
+      tableId: Number,
+      numberOfGuests: Number
+    }
+  ]
 });
 
 export default model("Restaurant", restaurantSchema);
