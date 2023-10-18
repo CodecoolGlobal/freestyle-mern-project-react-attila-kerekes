@@ -207,14 +207,28 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
           }
           return currentTable;
         })
-        await Restaurant.findByIdAndUpdate(restaurantId, { tables: updatedTables });
-        /* const reservation = {
+
+        const restaurantReservations = [...restaurant.reservations];
+        restaurantReservations.push({
           numberOfGuests: numberOfGuests,
-          customerId: customerId,
-          restaurantId: restaurantId,
-          tableId: table.id
-        } */
-        await Reservation.create(reservation);
+          customer: customerId,
+          tableId: table.tableId
+        });
+
+        const updatedRestaurant = await Restaurant.findByIdAndUpdate(restaurantId, { tables: updatedTables });
+        await Restaurant.updateOne({_id: restaurantId}, {reservations: restaurantReservations});
+
+        const customer = await Customer.findById(customerId);
+        const customerReservation = [...customer.reservations];
+        customerReservation.push({
+          restaurant: restaurantId,
+          tableId: table.tableId,
+          numberOfGuests
+        })
+
+        await Customer.updateOne({_id: customerId}, {reservations: customerReservation})
+
+        
         return res.json({ message: "Table booked" });
       } catch (err) {
         next(err);
