@@ -34,6 +34,9 @@ const customerSchema = new Schema({
       tableId: {
         type: Number,
       },
+      numberOfGuests: {
+        type: Number
+      },
       reservationTime: {
         type: Date
       }

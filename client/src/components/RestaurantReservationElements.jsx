@@ -1,12 +1,12 @@
 function RestaurantReservationElements({customerData}){
-
+    console.log(customerData)
     return(
         <div className="reservation-cards">
-            <p>Customer name: {customerData.firstName} {customerData.lastName}</p>
-            <p>Email address: {customerData.email}</p>
-            <p>Phone number: {customerData.phoneNumber}</p>
-            <p>Number of guests: {customerData.numberOfGuests}</p>
-            <p>Table id: {customerData.tableId}</p>
+            <p>Customer name: {customerData.customer.firstName} {customerData.customer.lastName}</p>
+            <p>Email address: {customerData.customer.email}</p>
+            <p>Phone number: {customerData.customer.phoneNumber}</p>
+            <p>Number of guests: {customerData.customer.numberOfGuests}</p>
+            <p>Table id: {customerData.customer.tableId}</p>
         </div>
     )
 }

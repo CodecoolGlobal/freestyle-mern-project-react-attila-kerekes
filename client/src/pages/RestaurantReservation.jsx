@@ -10,14 +10,13 @@ function RestaurantReservation(){
 
     useEffect(() => {
         const fetchResorvation = async () => {
-            const response = await fetch(`/api/restaurant/reservations/${id}`);
-            const reserv = await response.json();
-            setReservations(reserv);
+            const restaurantResponse = await fetch(`/api/restaurant/${id}`);
+            const restaurant = await restaurantResponse.json();
+            setReservations(restaurant.reservations);
         }
         fetchResorvation();
-    }, [])
+    }, [id])
 
-    console.log(reservations);
     return(
         <div className="restaurant-reservation restaurant-display">
             <CustomerNavbar />

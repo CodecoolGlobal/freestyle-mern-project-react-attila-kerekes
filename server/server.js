@@ -106,7 +106,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
     app.get('/api/restaurant/:id', async (req, res) => {
       try {
         const restaurantId = req.params.id;
-        const restaurant = await Restaurant.findById(restaurantId);
+        const restaurant = await Restaurant.findById(restaurantId).populate({path: 'reservations', populate: {path: 'customer'}});
         res.send(restaurant);
       } catch (err) {
         console.log(err.message);
@@ -119,7 +119,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
       try {
 
         const customerId = req.params.id;
-        const customer = await Customer.findById(customerId);
+        const customer = await Customer.findById(customerId).populate('reservations');
 
         res.send(customer);
       } catch (err) {
@@ -223,7 +223,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
         customerReservation.push({
           restaurant: restaurantId,
           tableId: table.tableId,
-          numberOfGuests
+          numberOfGuests: numberOfGuests
         })
 
         await Customer.updateOne({_id: customerId}, {reservations: customerReservation})
