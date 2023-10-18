@@ -25,6 +25,23 @@ const customerSchema = new Schema({
     required: true,
     unique: true,
   },
+  reservations: [
+    {
+      restaurant: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Restaurant'
+      },
+      tableId: {
+        type: Number,
+      },
+      numberOfGuests: {
+        type: Number
+      },
+      reservationTime: {
+        type: Date
+      }
+    }
+  ]
   // address: {
   //   country: {
   //     type: String,

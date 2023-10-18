@@ -5,16 +5,15 @@ import ReservationElement from "./ReservationElement";
 function CustomerReservations() {
   const [reservations, setReservations] = useState([]);
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     async function fetchData () {
-      const response = await fetch(`/api/reservations/customer/${id}`);
-      const data = await response.json();
-      return data.reservations;
+      const customerResponse = await fetch(`/api/customer/${id}`);
+      const customer = await customerResponse.json();
+      setReservations(customer.reservations);
     }
     fetchData()
-  }, [])
+  }, [id])
 
   return (
     <div>

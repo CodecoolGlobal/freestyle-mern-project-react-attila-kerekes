@@ -1,12 +1,13 @@
 import { useState } from "react";
 import RestaurantNav from "../components/RestaurantNav";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CustomerNavbar from '../component/customer_components/CustomerNavbar';
 
 
 function AddTables(){
     const [table, setTable] = useState({available: true});
     const {id} = useParams();
+    const navigate = useNavigate();
 
     async function handleSubmit(event){
         event.preventDefault();
@@ -20,7 +21,7 @@ function AddTables(){
 
         const response = await post.json();
         if(response.status === 'added'){
-            setTable({available: true});
+            navigate(`/restaurant/myrestaurant/${id}`);
         }
     }
 
@@ -30,7 +31,7 @@ function AddTables(){
             <RestaurantNav />
             <form onSubmit={handleSubmit}>
                 <label>Table id: </label>
-                <input type="number" value={table.id} required onChange={(event) => {setTable(prev => ({...prev, id: event.target.value}))}}/>
+                <input type="number" value={table.id} required onChange={(event) => {setTable(prev => ({...prev, tableId: Number(event.target.value)}))}}/>
                 <br />
                 <label>Seets count: </label>
                 <input type="number" required value={table.seats} onChange={(event) => {setTable(prev => ({...prev, seats: event.target.value}))}}/>
