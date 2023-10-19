@@ -244,13 +244,13 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
 
         const customers = await Customer.find({'reservations': {$elemMatch: {restaurant : deletedId}}});
         
-        const customerReservations = customers.map(customer => {
+        const customerReservations = customers.map( async (customer) => {
           const reservations = customer.reservations.filter(reservation => reservation.restaurant != deletedId);
           customer.reservations = reservations;
-          return customer;
+          await customer.save();
         })
     
-        
+        console.log(await Customer.findById('653117aca03367c5971fb768'));
 
         res.json(deletedRestaurant);
       } catch(error){
