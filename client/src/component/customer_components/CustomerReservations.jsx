@@ -18,7 +18,7 @@ function CustomerReservations() {
   return (
     <div>
       <h1>Reservations: {reservations.length ? reservations.length : 'You don\'t have any reservations!'}</h1>
-      <table>{reservations.map(reservation => <ReservationElement key={reservation._id} reservation={reservation}/>)}</table>
+      {reservations && <table>{reservations.map(reservation => <ReservationElement key={reservation._id} reservation={reservation}/>)}</table>}
     </div>
   )
 }
