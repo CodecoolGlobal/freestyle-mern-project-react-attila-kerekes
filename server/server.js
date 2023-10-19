@@ -237,7 +237,26 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
 
 
 
+    app.delete('/api/restaurant/:id', async (req, res, next) => {
+      try{
+        const deletedId = req.params.id;
+        const deletedRestaurant = await Restaurant.findByIdAndDelete(deletedId);
 
+        const customers = await Customer.find({'reservations': {$elemMatch: {restaurant : deletedId}}});
+        
+        const customerReservations = customers.map( async (customer) => {
+          const reservations = customer.reservations.filter(reservation => reservation.restaurant != deletedId);
+          customer.reservations = reservations;
+          await customer.save();
+        })
+    
+        console.log(await Customer.findById('653117aca03367c5971fb768'));
+
+        res.json(deletedRestaurant);
+      } catch(error){
+        next(error);
+      }
+    })
 
     app.listen(3000, () => console.log('Server started on port 3000'));
   }). catch((err) => console.log(err));

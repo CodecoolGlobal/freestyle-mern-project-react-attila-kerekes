@@ -1,5 +1,6 @@
 function ReservationElement({reservation}){
 
+    console.log(reservation);
     return (
         <div>
             <p>Restaurant: {reservation.restaurant.restaurantName}</p>
