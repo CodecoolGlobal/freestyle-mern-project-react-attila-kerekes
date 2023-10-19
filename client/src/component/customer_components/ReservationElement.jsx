@@ -1,9 +1,13 @@
-function ReservationElement({reservation}){
+function ReservationElement({reservation, onDelete}){
 
     async function deleteReservation(){
         const sendReservation = await fetch(`/api/reservations/${reservation._id}`, {
             method: 'DELETE'
         });
+
+        if(sendReservation.ok){
+            onDelete();
+        }
     }
 
 
