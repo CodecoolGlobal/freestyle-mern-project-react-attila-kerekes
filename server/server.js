@@ -235,57 +235,8 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
       }
     })
 
-    //get all reservations for one customer by id
-    app.get('/api/reservations/customer/:id', async (req, res, next) => {
-      try {
-        const reservations = await Reservation.find({ customerId: req.params.id });
-        const result = await Promise.all(reservations.map(async (reservation) => {
-          const restaurant = await Restaurant.findById(reservation.restaurantId);
-          reservation.restaurantId = restaurant.restaurantName;
-          return reservation;
-        }));
-        return res.json({ reservations: result });
-      } catch (err) {
-        next(err);
-      }
-    });
 
 
-
-
-
-
-
-
-
-
-
-
-    //get restaurant reservations
-    app.get('/api/restaurant/reservations/:id', async (req, res) => {
-      try{
-        const restaurantId = req.params.id;
-        const reservations = await Reservation.find({restaurantId: restaurantId});
-
-        const resAdditionalData = reservations.map(reservation => ({numberOfGuests: reservation.numberOfGuests, tableId: reservation.tableId}));
-
-        const customers = await Promise.all(reservations.map(async (reservation, i) => {
-          const customer = await Customer.findById(reservation.customerId);
-          return {
-            firstName: customer.firstName,
-            lastName: customer.lastName,
-            email: customer.email,
-            phoneNumber: customer.phoneNumber,
-            ...resAdditionalData[i]
-          };
-        }));
-
-        res.send(customers);
-      } catch(err){
-        console.log(err.message);
-        return res.status(500).send({error: err.message});
-      }
-    })
 
 
     app.listen(3000, () => console.log('Server started on port 3000'));
