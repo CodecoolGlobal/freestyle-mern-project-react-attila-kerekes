@@ -21,8 +21,8 @@ function RestaurantReservation(){
         <div className="restaurant-reservation restaurant-display">
             <CustomerNavbar />
             <RestaurantNav />
-            {reservations !== null && <h3>Resorvations: </h3>}
-            {reservations === null ? <p>Loading...</p> : reservations.length ? reservations.map(res => <RestaurantReservationElements key={Number(res.tableId)} customerData={res}/>) : <p>The restaurant dont have any resorvations!</p>}
+            {reservations !== null && <h1>Reservations: </h1>}
+            {reservations === null ? <h1>Loading...</h1> : reservations.length ? reservations.map(res => <RestaurantReservationElements key={Number(res.tableId)} customerData={res}/>) : <h2>The restaurant have no reservations!</h2>}
         </div>
     )
 }

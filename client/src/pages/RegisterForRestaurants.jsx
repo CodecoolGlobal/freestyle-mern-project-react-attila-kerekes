@@ -48,7 +48,7 @@ export const RegisterForRestaurants = () => {
     };
 
     return (
-        <div>
+        <div className="login">
             <h2>Register your restaurant</h2>
             <form onSubmit={handleSubmit}>
                 <label>
