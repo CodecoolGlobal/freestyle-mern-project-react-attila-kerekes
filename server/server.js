@@ -258,6 +258,47 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
       }
     })
 
+    app.delete('/api/reservations/:reservationId', async (req, res, next) => {
+      try{
+        const reservationId = req.params.reservationId;
+        const customers = await Customer.find({'reservations': {$elemMatch: {_id : reservationId}}});
+        const customer = customers[0];
+
+        let restaurantInfo;
+
+        const updatedReservations = customer.reservations.filter(reservation => reservation._id != reservationId);//update the customer model
+        
+        for(const reservation of customer.reservations){
+          if(reservation._id !== reservationId){
+            restaurantInfo = {
+              tableId : reservation.tableId,
+              restaurant: reservation.restaurant
+            }
+          }
+        }
+        
+        const restaurant = await Restaurant.findById(restaurantInfo.restaurant);
+        const restaurantReservations = restaurant.reservations.filter(reservation => reservation.tableId !== restaurantInfo.tableId);
+        
+        
+        restaurant.reservations = restaurantReservations;
+        for(const table of restaurant.tables){
+          if(table.tableId === restaurantInfo.tableId){
+            table.available = true;
+            break;
+          }
+        }
+        customer.reservations = updatedReservations;
+
+        await Restaurant.findByIdAndUpdate(restaurant._id, restaurant);
+        await Customer.findByIdAndUpdate(customer._id, customer);
+        res.sendStatus(200);
+
+      } catch(error){
+        next(error);
+      }
+    })
+
     app.listen(3000, () => console.log('Server started on port 3000'));
   }). catch((err) => console.log(err));
 

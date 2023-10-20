@@ -4,6 +4,7 @@ import ReservationElement from "./ReservationElement";
 
 function CustomerReservations() {
   const [reservations, setReservations] = useState([]);
+  const [reFetch, setReFetch] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -13,12 +14,20 @@ function CustomerReservations() {
       setReservations(customer.reservations);
     }
     fetchData()
-  }, [id])
+  }, [id, reFetch])
 
   return (
     <div>
       <h1>Reservations: {reservations.length ? reservations.length : 'You don\'t have any reservations!'}</h1>
-      {reservations && <table>{reservations.map(reservation => <ReservationElement key={reservation._id} reservation={reservation}/>)}</table>}
+      {reservations && 
+        <table>{
+          reservations.map(reservation => 
+                            <ReservationElement 
+                              key={reservation._id} 
+                              onDelete={() => {setReFetch(prev => !prev)}} 
+                              reservation={reservation}/>
+                          )}
+        </table>}
     </div>
   )
 }
