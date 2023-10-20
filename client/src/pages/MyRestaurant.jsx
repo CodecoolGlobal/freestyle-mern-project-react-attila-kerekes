@@ -37,15 +37,15 @@ function RestaurantMain(){
             <RestaurantNav />
             {restaurant && 
                 <div className="my-restaurant">
-                    <p>Restaurant name: {restaurant.restaurantName}</p>
-                    <p>Opening: {restaurant.opening}</p>
-                    <p>Closing: {restaurant.closing}</p>
-                    <p>Email address: {restaurant.email}</p>
-                    <p>Phone number: {restaurant.phoneNumber}</p>
+                    <h1>Restaurant name: {restaurant.restaurantName}</h1>
+                    <div className="restaurantInfo">Closing: {restaurant.closing}</div>
+                    <div className="restaurantInfo">Opening: {restaurant.opening}</div>
+                    <div className="restaurantInfo">Email address: {restaurant.email}</div>
+                    <div className="restaurantInfo">Phone number: {restaurant.phoneNumber}</div>
                     <Link to={`/restaurant/update/${id}`}><button>Update informations</button></Link>
-                    <button onClick={() => {
+                    <Link><button onClick={() => {
                         setIsDeleteClicked(true);
-                    }} disabled={isDeleteClicked ? true : false}>Delete my restaurant</button>
+                    }} disabled={isDeleteClicked ? true : false}>Delete my restaurant</button></Link>
 
                     {isDeleteClicked && 
                         <>
@@ -61,8 +61,8 @@ function RestaurantMain(){
                     <table>
                         <tr>
                             <th>Table Id:</th>
-                            <th>Seets:</th>
-                            <th>Avaible:</th>
+                            <th>Seats:</th>
+                            <th>Available:</th>
                         </tr>
                         {restaurant.tables.map(table => <RestaurantTableElements key={table.id} table={table}/>)}
                     </table>

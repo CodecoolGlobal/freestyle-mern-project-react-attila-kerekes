@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import RestaurantForm from '../components/ReastaurantForm';
+import RestaurantForm from '../components/RestaurantForm';
 import RestaurantNav from '../components/RestaurantNav';
 import CustomerNavbar from '../component/customer_components/CustomerNavbar';
 
@@ -11,7 +11,7 @@ function UpdateRestaurant(){
         <div className="update-restaurant restaurant-display">
             <CustomerNavbar />
             <RestaurantNav />
-            {updateSuccess === null && <h3>Update restaurant informations: </h3>}
+            {updateSuccess === null && <h1>Update restaurant information: </h1>}
             {updateSuccess === null ? <RestaurantForm onUpdate={(isSuccess) => {setUpdateSuccess(isSuccess)}}/> : updateSuccess === true  ? <h3>The updates was successfull!</h3> : <h3>Try again! Something went wrong!</h3>}
 
         </div>

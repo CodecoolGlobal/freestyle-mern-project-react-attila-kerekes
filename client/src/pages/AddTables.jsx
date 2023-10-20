@@ -33,7 +33,7 @@ function AddTables(){
                 <label>Table id: </label>
                 <input type="number" value={table.id} required onChange={(event) => {setTable(prev => ({...prev, tableId: Number(event.target.value)}))}}/>
                 <br />
-                <label>Seets count: </label>
+                <label>Seats count: </label>
                 <input type="number" required value={table.seats} onChange={(event) => {setTable(prev => ({...prev, seats: event.target.value}))}}/>
                 <br />
                 <button>Add table</button>

@@ -46,8 +46,8 @@ export const Login = ({ onSubmit }) => {
 
     if (isCustomer) {
         return (
-            <div>
-                <h2>Login</h2>
+            <div className="login">
+                <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
                     <p style={{ color: 'red' }}>{err}</p>
                     <label>
@@ -72,13 +72,13 @@ export const Login = ({ onSubmit }) => {
                     <br />
                     <button type="submit">Login</button><br />
                 </form>
-                <Link to='/register'>Register</Link><br />
+                <Link to='/register'><button>Register</button></Link><br />
                 <button onClick={() => setSearchParams({isCustomer: !isCustomer})}>{isCustomer ? "Log in as a Restaurant" : "Log in as customer"}</button>
             </div>
         );
     } else {
         return (
-            <div>
+            <div className="login">
                 <h2>Login for restaurants</h2>
                 <form onSubmit={handleSubmit}>
                     <label>
@@ -102,7 +102,7 @@ export const Login = ({ onSubmit }) => {
                     </label>
                     <br />
                     <button type="submit">Login</button><br />
-                    <Link to='/register?isCustomer=false'>Register as a restaurant</Link><br />
+                    <Link to='/register?isCustomer=false'><button>Register as a restaurant</button></Link><br />
                     <button onClick={() => setSearchParams({isCustomer: !isCustomer})}>{isCustomer ? "Log in as a Restaurant" : "Log in as customer"}</button>
                 </form>
             </div>

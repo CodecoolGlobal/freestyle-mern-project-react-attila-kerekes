@@ -5,9 +5,9 @@ function Contact() {
   return (
     <div>
       <ul>
-        <li>Lead developer: Kamilla</li>
-        <li>Lead developer: Patrik</li>
-        <li>Lead developer: Attila</li>
+        <li><h1>Lead developer: Kamilla</h1></li>
+        <li><h1>Lead developer: Patrik</h1></li>
+        <li><h1>Lead developer: Attila</h1></li>
       </ul>
     </div>
   )

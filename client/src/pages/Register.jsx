@@ -88,7 +88,7 @@ export const Register = ({onSubmit}) => {
 
     if (isCustomer) {
     return (
-        <div>
+        <div className="login">
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -143,13 +143,13 @@ export const Register = ({onSubmit}) => {
                     <br />
                 <button type="submit">Register</button><br/>
             </form>
-                <Link to='/?isCustomer=true'>Log in</Link><br/>
+                <Link to='/?isCustomer=true'><button>Log in</button></Link><br/>
                 <button onClick={() => setSearchParams({isCustomer: !isCustomer})}>Register as a Restaurant</button>
         </div>
     );
     } else {
         return (
-            <div>
+            <div className="login">
                 <h2>Register your restaurant</h2>
                 <form onSubmit={handleSubmit}>
                     <label>
@@ -232,7 +232,7 @@ export const Register = ({onSubmit}) => {
                     <br />
                     <button type="submit">Register</button> <br/>
                 </form>
-                    <Link to='/?isCustomer=false'>Log in as a restaurant</Link><br/>
+                    <Link to='/?isCustomer=false'><button>Log in as a restaurant</button></Link><br/>
                     <button onClick={() => setSearchParams({isCustomer: !isCustomer})}>Register as a customer</button>
             </div>
         );
