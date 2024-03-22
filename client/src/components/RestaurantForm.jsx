@@ -13,7 +13,7 @@ function RestaurantForm({onUpdate}){
             setRestaurantInfo(restaurantData);
         }
         fetchData();
-    }, [])
+    }, [id])
 
 
     async function handleSubmit(event){
