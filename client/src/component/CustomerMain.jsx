@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Outlet, useParams } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import CustomerButtons from "./customer_components/CustomerButtons";
 
 
 function CustomerMain() {
-  const [customerInfo, setCustomerInfo] = useState({});
+  const [, setCustomerInfo] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function CustomerMain() {
       setCustomerInfo(customerData);
     }
     fetchData();
-  }, [])
+  }, [id])
 
   return (
     <div className="CustomerMain">
