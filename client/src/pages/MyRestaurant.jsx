@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import RestaurantNav from "../components/RestaurantNav";
 import RestaurantTableElements from '../components/RestaurantTableElements';
 import CustomerNavbar from '../component/customer_components/CustomerNavbar';
@@ -73,10 +73,3 @@ function RestaurantMain(){
 }
 
 export default RestaurantMain;
-
-
-/*
-    id
-    székek
-    foglalható
-*/
