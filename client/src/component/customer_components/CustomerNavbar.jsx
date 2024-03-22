@@ -13,7 +13,7 @@ function CustomerNavbar({id}) {
 }
 
 CustomerNavbar.propTypes = {
-  id: Proptypes.number
+  id: Proptypes.string
 }
 
 export default CustomerNavbar;
