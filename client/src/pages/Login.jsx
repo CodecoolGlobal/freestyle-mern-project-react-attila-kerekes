@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import Proptypes from "prop-types";
 
 const login = async (email, password, url, setErr) => {
     const data = {
@@ -24,7 +25,6 @@ const login = async (email, password, url, setErr) => {
 export const Login = ({ onSubmit }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [isCustomer, setIsCustomer] = useState(true);
     const [err, setErr] = useState('');
     const navigate = useNavigate();
     let [searchParams, setSearchParams] = useSearchParams();
@@ -109,3 +109,8 @@ export const Login = ({ onSubmit }) => {
         );
     }
 };
+
+
+Login.propTypes = {
+    onSubmit: Proptypes.func
+}
