@@ -36,25 +36,6 @@ h1 {
   line-height: 1.1;
 }
 
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-} */
-
-
-
-/* button:hover {
-  border-color: #646cff;
-} */
-
-
 
 button:focus,
 button:focus-visible {
@@ -89,26 +70,24 @@ button {
   margin: 20px;
   font-size: 1.5em;
   font-weight: 600;
-  background-color: #03426c; /* Blue background color */
-  color: #fff; /* White text color */
+  background-color: #03426c; 
+  color: #fff; 
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
 }
 
 button:hover {
-  background-color: #1e87db; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight zoom on hover */
+  background-color: #1e87db;
+  transform: scale(1.05); 
 }
 
 
-/* Adjust background color */
 body {
-  background-color: #f4f4f4; /* A light gray background */
+  background-color: #f4f4f4; 
 }
 
-/* Update text color */
 body, a, button {
-  color: #d86c14; /* Dark gray text color */
+  color: #d86c14; 
 }
 
 
