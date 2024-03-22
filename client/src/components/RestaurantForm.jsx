@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Proptypes from "prop-types";
 
 function RestaurantForm({onUpdate}){
     const [restaurantInfo, setRestaurantInfo] = useState({});
@@ -40,7 +41,6 @@ function RestaurantForm({onUpdate}){
             <label>Restaurant Name: </label>
             <input type="text" name="restaurantName" value={restaurantInfo.restaurantName} onChange={(event) => {setRestaurantInfo(prev => ({...prev, restaurantName: event.target.value}))}}/>
             <br />
-            {/*addressInfo */}
             <label>Opening: </label>
             <input type="time" name="opening" value={restaurantInfo.opening} onChange={(event) => {setRestaurantInfo(prev => ({...prev, opening: event.target.value}))}}/>
             <br />
@@ -58,42 +58,8 @@ function RestaurantForm({onUpdate}){
     )
 }
 
-/* restaurantName: {
-    type: String,
-    required: true
-  },
-  // address: {
-  //   country: {
-  //       type: String,
-  //       required: true
-  //   },
-  //   city: {
-  //       type: String,
-  //       required: true
-  //   },
-  //   street: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   locationNumber: {
-  //       type: Number,
-  //       required: true,
-  //     }
-  // },
-  opening: String,
-  closing: String,
-  email: {
-    type: String,
-    required: true
-  },
-  phoneNumber: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  tables: [] */
+RestaurantForm.propTypes = {
+    onUpdate: Proptypes.func
+}
 
 export default RestaurantForm;
