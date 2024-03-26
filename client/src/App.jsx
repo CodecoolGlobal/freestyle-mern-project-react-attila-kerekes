@@ -16,7 +16,7 @@ import RestaurantReservation from './pages/RestaurantReservation';
 import ReservationPage from './component/customer_components/ReservationPage';
 
 function App() {
-  const [userId, setUserId] = useState('');
+  const [, setUserId] = useState('');
 
   const logInUser = async (id) => {
     setUserId(id);

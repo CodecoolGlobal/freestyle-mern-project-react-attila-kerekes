@@ -1,3 +1,5 @@
+import Proptypes from "prop-types";
+
 function ReservationElement({reservation, onDelete}){
 
     async function deleteReservation(){
@@ -20,6 +22,11 @@ function ReservationElement({reservation, onDelete}){
             <button onClick={deleteReservation}>Delete reservation</button>
         </div>
     )
+}
+
+ReservationElement.propTypes = {
+    reservation: Proptypes.object,
+    onDelete: Proptypes.func
 }
 
 export default ReservationElement;

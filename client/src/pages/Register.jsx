@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import Proptypes from "prop-types";
 
 const postDataRestaurant = async (email, password, name, number, openingTime, closingTime, cuisine, city) => {
     try {
@@ -55,6 +56,8 @@ const postDataRestaurant = async (email, password, name, number, openingTime, cl
     return responseData;
 };
 
+
+
 export const Register = ({onSubmit}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -66,7 +69,6 @@ export const Register = ({onSubmit}) => {
     const [closingTime, setClosingTime] = useState('');
     const [cuisine, setCuisine] = useState('');
     const [city, setCity] = useState('');
-    // const [isCustomer, setIsCustomer] = useState(true);
     const navigate = useNavigate();
     let [searchParams, setSearchParams] = useSearchParams();
     const isCustomer = searchParams.get('isCustomer') === null || searchParams.get('isCustomer') === "true" ;
@@ -238,3 +240,8 @@ export const Register = ({onSubmit}) => {
         );
     }
 };
+
+
+Register.propTypes = {
+    onSubmit: Proptypes.func
+}

@@ -1,3 +1,5 @@
+import Proptypes from "prop-types";
+
 function RestaurantTableElements({table}){
 
     return (
@@ -9,4 +11,8 @@ function RestaurantTableElements({table}){
     )
 }
 
+
+RestaurantTableElements.propTypes = {
+    table: Proptypes.object
+}
 export default RestaurantTableElements

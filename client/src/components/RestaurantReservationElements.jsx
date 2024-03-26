@@ -1,5 +1,6 @@
+import Proptypes from "prop-types";
+
 function RestaurantReservationElements({customerData}){
-    console.log(customerData)
     return(
         <div className="reservation-cards">
             <p>Customer name: {customerData.customer.firstName} {customerData.customer.lastName}</p>
@@ -9,6 +10,10 @@ function RestaurantReservationElements({customerData}){
             <p>Table id: {customerData.tableId}</p>
         </div>
     )
+}
+
+RestaurantReservationElements.propTypes = {
+    customerData: Proptypes.object
 }
 
 export default RestaurantReservationElements;

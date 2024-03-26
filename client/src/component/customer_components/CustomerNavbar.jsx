@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import Proptypes from "prop-types";
 
 function CustomerNavbar({id}) {
 
@@ -10,6 +10,10 @@ function CustomerNavbar({id}) {
       <button><Link to={`/customer/${id}/contact`}>Contact</Link></button>
     </nav>
   )
+}
+
+CustomerNavbar.propTypes = {
+  id: Proptypes.string
 }
 
 export default CustomerNavbar;

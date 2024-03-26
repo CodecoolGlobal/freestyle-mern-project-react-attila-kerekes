@@ -1,6 +1,6 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Proptypes from "prop-types";
 
 function ReservationForm({ onUpdate }) {
 
@@ -18,7 +18,7 @@ function ReservationForm({ onUpdate }) {
       setRestaurant(restaurantData);
     }
     fetchData();
-  }, [])
+  }, [id, id2])
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -61,6 +61,10 @@ function ReservationForm({ onUpdate }) {
       </div>
     </div>
   )
+}
+
+ReservationForm.propTypes = {
+  onUpdate: Proptypes.func
 }
 
 export default ReservationForm;

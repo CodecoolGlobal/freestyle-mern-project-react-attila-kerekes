@@ -9,38 +9,8 @@ export const RegisterForRestaurants = () => {
     const [openingTime, setOpeningTime] = useState('');
     const [closingTime, setClosingTime] = useState('');
 
-    const postDataRestaurant = async () => {
-        try {
-          const data = {
-            email: email,
-            password: password,
-            restaurantName: name,
-            phoneNumber: number,
-            opening: openingTime,
-            closing: closingTime
-          };
-          const response = await fetch('/api/restaurants', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-      
-          if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-          }
-          const responseData = await response.json().message;
-          return responseData;
-        } catch (error) {
-          console.error('Error:', error);
-          throw error;
-        }
-      };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        postData();
         setEmail('');
         setName('');
         setPassword('');

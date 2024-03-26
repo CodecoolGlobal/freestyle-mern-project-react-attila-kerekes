@@ -1,18 +1,21 @@
 import mongoose from "mongoose";
 import express from "express";
 import bcrypt from "bcrypt";
+import "dotenv/config"
 
 import Customer from "./model/Customer.js";
-import Reservation from "./model/Reservation.js";
 import Restaurant from "./model/Restaurant.js";
 
-mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongodb.net/")
+
+
+const { MONGO_URL } = process.env;
+
+mongoose.connect("mongodb+srv://martinpatrik14:ygtn7lOry9Ut5pp3@restaurant.afqc6vr.mongodb.net/")
   .then(() => {
     const app = express();
 
     app.use(express.json());
 
-    // CUSTOMER requests
 
     //register customer
     app.post('/api/customers', async (req, res, next) => {
@@ -266,7 +269,7 @@ mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongod
 
         let restaurantInfo;
 
-        const updatedReservations = customer.reservations.filter(reservation => reservation._id != reservationId);//update the customer model
+        const updatedReservations = customer.reservations.filter(reservation => reservation._id != reservationId);
         
         for(const reservation of customer.reservations){
           if(reservation._id !== reservationId){
