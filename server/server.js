@@ -6,6 +6,9 @@ import Customer from "./model/Customer.js";
 import Reservation from "./model/Reservation.js";
 import Restaurant from "./model/Restaurant.js";
 
+mongoose.connect("mongodb://127.0.0.1:27017/Restaurant")
+
+
 mongoose.connect("mongodb+srv://restaurant:restaurant1@restaurant.feqcs03.mongodb.net/")
   .then(() => {
     const app = express();
