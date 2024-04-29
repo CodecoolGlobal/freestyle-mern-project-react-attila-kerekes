@@ -10,7 +10,7 @@ import Restaurant from "./model/Restaurant.js";
 
 const { MONGO_URL } = process.env;
 
-mongoose.connect("mongodb+srv://martinpatrik14:ygtn7lOry9Ut5pp3@restaurant.afqc6vr.mongodb.net/")
+mongoose.connect(MONGO_URL)
   .then(() => {
     const app = express();
 
